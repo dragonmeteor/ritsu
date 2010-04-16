@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+# The command line Ritsu generator.
+
+$LOAD_PATH.unshift File.dirname(__FILE__) + "/../lib"
+require 'ritsu'
+require 'optparse'
+
+options = {:generator => "default"}
+OptionParser.new do |opts|
+  opts.banner = "Usage: ritsu PROJECT_NAME [OPTIONS]"
+  opts.on("-g", "--generator GENERATOR", "name of the generator to use") do |generator|
+    options[:generator] = generator
+  end
+  
+  opts.parse!
+  if ARGV.length < 1
+    puts opts
+    exit
+  end
+end
+
+generators = Ritsu::ProjectGenerator.instances.select { |gen|
+  gen.name == options[:generator]
+}
+options.delete(:generator)
+
+if generators.length == 0
+  puts "there is no generator with name '#{options[:generator]}'"
+else
+  begin
+    generators[0].generate(ARGV[0], '.', options)
+  rescue Exception => e
+    puts e
+  end
+end

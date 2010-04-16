@@ -1,0 +1,16 @@
+require 'rubygems'
+require 'active_support'
+
+require 'ritsu/external_library'
+require 'ritsu/project'
+require 'ritsu/target'
+require 'ritsu/src_file'
+require 'ritsu/block'
+require 'ritsu/template'
+require 'ritsu/project_generator'
+
+require 'ritsu/template_policies'
+require 'ritsu/targets'
+require 'ritsu/src_files'
+require 'ritsu/utility'
+require 'ritsu/project_generators'

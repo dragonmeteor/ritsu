@@ -1,0 +1,1 @@
+require 'ritsu/project_generators/default_generator'

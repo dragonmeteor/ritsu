@@ -1,18 +1,20 @@
-require 'ritsu/src_file'
-require 'ritsu/project'
-require 'ritsu/utility/instance_set'
+require File.dirname(__FILE__) + '/../src_file'
+require File.dirname(__FILE__) + '/../project'
+require File.dirname(__FILE__) + '/../utility/instance_set'
 
-module Ritsu::SrcFiles
-  class CppFile < Ritsu::SrcFile    
-    def initialize(src_path, owner)
-      super(src_path, owner)
+module Ritsu
+  module SrcFiles
+    class CppFile < Ritsu::SrcFile    
+      def initialize(src_path, owner)
+        super(src_path, owner)
+      end
     end
-  end
   
-  module AddCppFile
-    def add_cpp_file(path, options={})
-      src_path = compute_src_path(path, options)
-      CppFile.new(src_path, self)
+    module AddCppFile
+      def add_cpp_file(path, options={})
+        src_path = compute_src_path(path, options)
+        CppFile.new(src_path, self)
+      end
     end
   end
 end

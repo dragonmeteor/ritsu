@@ -1,4 +1,4 @@
-require 'ritsu/template'
+require File.dirname(__FILE__) + '/template'
 
 module Ritsu::TemplatePolicies
   module StrictBlockMatchingButLeaveUserTextBe

@@ -1,6 +1,7 @@
+require 'rubygems'
 require 'active_support/core_ext/string/starts_ends_with'
-require 'ritsu/utility/check_upon_add_set'
-require 'ritsu/utility/files'
+require File.dirname(__FILE__) + '/utility/check_upon_add_set'
+require File.dirname(__FILE__) + '/utility/files'
 
 module Ritsu
   class Block    

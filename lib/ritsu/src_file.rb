@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'active_support'
-require 'ritsu/utility/instance_set'
-require 'ritsu/utility/file_robot'
+require File.dirname(__FILE__) + '/utility/instance_set'
+require File.dirname(__FILE__) + '/utility/file_robot'
 
 module Ritsu
   class SrcFile

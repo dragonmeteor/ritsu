@@ -1,0 +1,6 @@
+doc/*
+.yardoc/*
+.pkg/*
+test/**/output/*
+.hgignore
+.hg/*

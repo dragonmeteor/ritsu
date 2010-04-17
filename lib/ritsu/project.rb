@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'active_support'
-require 'ritsu/external_library'
-require 'ritsu/utility/single_instance'
-require 'ritsu/utility/strings'
-require 'ritsu/src_files/project_cmake_lists'
+require File.dirname(__FILE__) + '/external_library'
+require File.dirname(__FILE__) + '/utility/single_instance'
+require File.dirname(__FILE__) + '/utility/strings'
+require File.dirname(__FILE__) + '/src_files/project_cmake_lists'
 
 module Ritsu
   class Project

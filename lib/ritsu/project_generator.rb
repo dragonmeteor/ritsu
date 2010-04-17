@@ -1,13 +1,14 @@
-require 'ritsu/utility/file_robot'
-require 'ritsu/utility/instance_set'
-require 'ritsu/utility/strings'
-require 'singleton'
+require File.dirname(__FILE__) + '/utility/file_robot'
+require File.dirname(__FILE__) + '/utility/instance_set'
+require File.dirname(__FILE__) + '/utility/strings'
 
 module Ritsu
   class ProjectGenerator
-    include Ritsu::Utility::InstanceSet
-    
     attr_reader :name
+    
+    def self.generator_classes
+      @generator_classes ||= {}
+    end
     
     def self.is_valid_generator_name?(name)
       Ritsu::Utility::Strings::is_c_name?(name)
@@ -18,7 +19,6 @@ module Ritsu
         raise ArgumentError.new("'#{name}' is not a valid project name (i.e., a C name)")
       end
       @name = name
-      ProjectGenerator.instances << self
     end
     
     def self.validate_instance(instance)

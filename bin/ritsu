@@ -19,16 +19,13 @@ OptionParser.new do |opts|
   end
 end
 
-generators = Ritsu::ProjectGenerator.instances.select { |gen|
-  gen.name == options[:generator]
-}
-options.delete(:generator)
+generator_class = Ritsu::ProjectGenerator.generator_classes[options[:generator]]
 
-if generators.length == 0
+if generator_class.nil?
   puts "there is no generator with name '#{options[:generator]}'"
 else
   begin
-    generators[0].generate(ARGV[0], '.', options)
+    generator_class.new.generate(ARGV[0], '.', options)
   rescue Exception => e
     puts e
   end

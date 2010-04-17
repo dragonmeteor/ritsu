@@ -1,4 +1,4 @@
-require 'ritsu/utility/check_upon_add_set'
+require File.dirname(__FILE__) + '/../utility/check_upon_add_set'
 
 module Ritsu
   module Utility

@@ -1,7 +1,7 @@
-require 'ritsu/src_file'
-require 'ritsu/utility/file_robot'
-require 'ritsu/block'
-require 'ritsu/utility/files'
+require File.dirname(__FILE__) + '/../src_file'
+require File.dirname(__FILE__) + '/../utility/file_robot'
+require File.dirname(__FILE__) + '/../block'
+require File.dirname(__FILE__) + '/../utility/files'
 
 module Ritsu::SrcFiles
   class TemplatedSrcFile < Ritsu::SrcFile

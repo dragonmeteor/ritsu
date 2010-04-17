@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'active_support'
-require 'ritsu/utility/accessors'
-require 'ritsu/utility/instance_set'
+require File.dirname(__FILE__) + '/utility/accessors'
+require File.dirname(__FILE__) + '/utility/instance_set'
 
 module Ritsu
   class ExternalLibrary

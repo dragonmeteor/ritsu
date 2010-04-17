@@ -1,37 +1,39 @@
-require 'ritsu/src_file'
-require 'ritsu/project'
-require 'ritsu/utility/instance_set'
-require 'ritsu/utility/file_robot'
+require File.dirname(__FILE__) + '/../src_file'
+require File.dirname(__FILE__) + '/../project'
+require File.dirname(__FILE__) + '/../utility/instance_set'
+require File.dirname(__FILE__) + '/../utility/file_robot'
 
-module Ritsu::SrcFiles
-  class HeaderFile < Ritsu::SrcFile
-    include Ritsu::Utility::InstanceSet
+module Ritsu
+  module SrcFiles
+    class HeaderFile < Ritsu::SrcFile
+      include Ritsu::Utility::InstanceSet
     
-    def initialize(src_path, owner)
-      super(src_path, owner)
-    end
+      def initialize(src_path, owner)
+        super(src_path, owner)
+      end
     
-    def include_guard
-      '__' + src_path.gsub(/[.\/]+/,'_').upcase + '__'
-    end
+      def include_guard
+        '__' + src_path.gsub(/[.\/]+/,'_').upcase + '__'
+      end
     
-    def create
-      Ritsu::Utility::FileRobot.create_file(abs_path,
-        "#ifndef #{include_guard}\n" +
-        "#define #{include_guard}\n" +
-        "\n" +
-        "////////////////////\n" +
-        "// YOUR CODE HERE //\n" +
-        "////////////////////\n" +
-        "\n" +
-        "#endif\n")
+      def create
+        Ritsu::Utility::FileRobot.create_file(abs_path,
+          "#ifndef #{include_guard}\n" +
+          "#define #{include_guard}\n" +
+          "\n" +
+          "////////////////////\n" +
+          "// YOUR CODE HERE //\n" +
+          "////////////////////\n" +
+          "\n" +
+          "#endif\n")
+      end
     end
-  end
   
-  module AddHeaderFile
-    def add_header_file(path, options={})
-      src_path = compute_src_path(path, options)
-      HeaderFile.new(src_path, self)
+    module AddHeaderFile
+      def add_header_file(path, options={})
+        src_path = compute_src_path(path, options)
+        HeaderFile.new(src_path, self)
+      end
     end
   end
 end

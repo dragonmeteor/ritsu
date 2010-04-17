@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'active_support'
-require 'ritsu/target'
-require 'ritsu/utility/instance_set'
-require 'ritsu/src_files/static_library_cmake_lists'
+require File.dirname(__FILE__) + '/../target'
+require File.dirname(__FILE__) + '/../utility/instance_set'
+require File.dirname(__FILE__) + '/../src_files/static_library_cmake_lists'
 
 module Ritsu::Targets
   class StaticLibrary < Ritsu::Target

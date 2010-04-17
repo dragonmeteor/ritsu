@@ -5,15 +5,10 @@ class DefaultGeneratorTest < Test::Unit::TestCase
   include Ritsu::Utility
   
   def data_dir; File.dirname(__FILE__) + "/" + File.basename(__FILE__, ".rb") end
-  
-  must "be present" do
-    assert Ritsu::ProjectGenerator.instances.size > 0
-    assert Ritsu::ProjectGenerator.instances.select {|x| x.kind_of?(Ritsu::ProjectGenerators::DefaultGenerator)}.size == 1
-  end
-  
+      
   file_test "generate" do
     FileRobot.quietly do
-      Ritsu::ProjectGenerators::DefaultGenerator.instance.generate('mio', output_dir)
+      Ritsu::ProjectGenerators::DefaultGenerator.new.generate('mio', output_dir)
     end
     
     assert_output_file_exists("mio")

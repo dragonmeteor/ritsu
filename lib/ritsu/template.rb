@@ -1,4 +1,4 @@
-require 'ritsu/block'
+require File.dirname(__FILE__) + '/block'
 
 module Ritsu
   class Template

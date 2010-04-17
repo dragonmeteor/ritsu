@@ -3,40 +3,7 @@
 require 'rubygems'
 require 'thor'
 require 'ritsu'
-require 'fileutils'
 require File.dirname(__FILE__) + "/meta/project.rb"
 
-DEFAULT_GENERATORS = {
-  :windows => "Visual Studio 9 2008",
-  :mac => "Xcode",
-  :unix => "Unix Makefiles",
-}
-
-THE_PLATFORM = Ritsu::Utility.platform
-
 class <%= @project_name.camelize %> < Thor
-  desc "update_src", "update all the source files"
-  def update_src
-    Ritsu::Project.instance.update
-  end
-
-  desc "cmake", "run CMake"
-  method_option :generator, :type => :string, :default => DEFAULT_GENERATORS[THE_PLATFORM]
-  def cmake
-    if !File.exists?(File.dirname(__FILE__) + "/build")
-      FileUtils.mkdir_p(File.dirname(__FILE__) + "/build")
-    end
-  
-    generator = options[:generator]
-  
-    FileUtils.chdir("build", :verbose => true)
-    system("cmake ../src -G\"#{generator}\"")
-  end
-
-  desc "update", "update source files and then run CMake"
-  method_option :generator, :type => :string, :default => DEFAULT_GENERATORS[THE_PLATFORM]
-  def update
-    update_src
-    cmake
-  end
 end

@@ -1,1 +1,1 @@
-require 'ritsu/project_generators/default_generator'
+require File.dirname(__FILE__) + '/project_generators/default_generator'

@@ -4,3 +4,4 @@ doc/*
 test/**/output/*
 .hgignore
 .hg/*
+ritsu.gemspec

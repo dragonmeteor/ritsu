@@ -22,6 +22,34 @@ module Ritsu::TemplatePolicies
     end
   end
   
+  module Blank
+    def update_block(block, options={})
+      block.contents.clear
+    end
+  end
+  
+  module DoNotUpdate
+    def update_block(block, options={})
+    end
+  end
+  
+  module Overwrite
+    def overwrite_block(block, options={})
+      block.clear_contents
+      contents.each do |content|
+        if !content.kind_of?(Ritsu::Template)
+          block.add_content content
+        else
+          block.add_content(content.create_block(options))
+        end
+      end
+    end
+    
+    def update_block(block, options={})
+      overwrite_block(block, options)
+    end
+  end
+  
   module FlexibleBlockMatching
     ##
     # @param (Block) a block
@@ -72,14 +100,22 @@ module Ritsu::TemplatePolicies
     include FlexibleBlockMatching
     
     def update_block(block, options={})
+      options = {:new_line_after_block => true}.merge(options)
       matching_child_blocks = match_child_blocks(block)
       
       child_templates.each do |child_template|
         if matching_child_blocks[child_template].nil?
           new_block = child_template.create_block(options)
-          block.contents.insert(
-            position_to_insert(block, new_block),
-            new_block)
+          
+          position = position_to_insert(block, new_block)
+          if position
+            block.contents.insert(position, new_block)
+            if options[:new_line_after_block]
+              block.contents.insert(position+1, "")
+            end
+          else
+            raise ArgumentError.new("cannot find position to insert '#{new_block.name}'")
+          end
         else
           matching = matching_child_blocks[child_template]
           child_template.update_block(matching)

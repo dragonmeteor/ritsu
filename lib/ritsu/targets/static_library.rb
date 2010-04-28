@@ -16,6 +16,18 @@ module Ritsu::Targets
     def can_be_depended_on?
       true
     end
+    
+    def executable?
+      false
+    end
+    
+    def shared_library?
+      false
+    end
+    
+    def static_library?
+      true
+    end
   end
 end
 

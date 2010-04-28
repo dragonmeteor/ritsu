@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + "/../../test_helpers"
 
 class DefaultGeneratorTest < Test::Unit::TestCase
-  include TestCaseWithFileTestData
+  include Ritsu::TestCaseWithFileTestData
   include Ritsu::Utility
   
   def data_dir; File.dirname(__FILE__) + "/" + File.basename(__FILE__, ".rb") end

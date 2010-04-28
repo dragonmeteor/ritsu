@@ -5,5 +5,5 @@ require 'thor'
 require 'ritsu'
 require File.dirname(__FILE__) + "/meta/project.rb"
 
-class <%= @project_name.camelize %> < Thor
+class <%= @project_name.camelize %> < Ritsu::Thors::DefaultThor
 end

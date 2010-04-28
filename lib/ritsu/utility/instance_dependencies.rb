@@ -22,6 +22,7 @@ module Ritsu
             def #{dependency_set_name}
               @#{dependency_set_name} ||= Ritsu::Utility::CheckUponAddSet.new do |s,dependency|
                 validate_dependency_#{name}(dependency)
+                self.class.invalidate_topological_orders
               end
             end
             
@@ -61,7 +62,7 @@ module Ritsu
               end
             end
             
-            def self.compute_topological_orders
+            def self.recompute_topological_orders
               indegrees = {}
               instances.each { |instance| indegrees[instance] = 0 }
               instances.each do |instance|
@@ -83,6 +84,22 @@ module Ritsu
                   end
                 end
               end
+              
+              @topological_orders_computed = true
+            end
+            
+            def self.topological_orders_computed?
+              @topological_order_computed ||= false
+            end
+
+            def self.compute_topological_orders
+              if !topological_orders_computed?
+                recompute_topological_orders
+              end
+            end
+
+            def self.invalidate_topological_orders
+              @topological_order_computed = false
             end
             
             def can_be_depended_on?

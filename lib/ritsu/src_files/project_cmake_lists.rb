@@ -6,19 +6,39 @@ module Ritsu
   module SrcFiles
     class ProjectCmakeLists < Ritsu::SrcFiles::TemplatedSrcFile
       class HeaderTemplate < Ritsu::Template
+        include Ritsu::TemplatePolicies::Overwrite
+        
         def initialize(project)
           super("ProjectCmakeLists -- Header")
           @project = project
-        end
-      
-        def update_block(block, options={})
-          block.contents.clear
-          block.contents << "PROJECT(#{@project.name})"
-          block.contents << "CMAKE_MINIMUM_REQUIRED(VERSION 2.6)"
-          block.contents << "SET(CMAKE_MODULE_PATH \"${CMAKE_SOURCE_DIR}/cmake_modules\" ${CMAKE_MODULE_PATH})"
+          
+          add_line "PROJECT(#{@project.name})"
+          add_line "CMAKE_MINIMUM_REQUIRED(VERSION 2.6)"
+          add_line "SET(CMAKE_MODULE_PATH \"${CMAKE_SOURCE_DIR}/cmake_modules\" ${CMAKE_MODULE_PATH})"
+          add_new_line
+          add_line "IF(WIN32)"
+          add_line '    OPTION(__WIN_PLATFORM__ "Windows Platform" ON)'
+          add_line "ELSE(WIN32)"
+          add_line '    OPTION(__WIN_PLATFORM__ "Windows Platform" OFF)'
+          add_line "ENDIF(WIN32)"
+          add_new_line
+          add_line "IF(UNIX)"
+          add_line "    IF(APPLE)"          
+          add_line '        OPTION(__MAC_PLATFORM__ "Apple Platform" ON)'
+          add_line '        OPTION(__UNIX_PLATFORM__ "Unix Platform" OFF)'
+          add_line "    ELSE(APPLE)"
+          add_line '        OPTION(__MAC_PLATFORM__ "Apple Platform" OFF)'
+          add_line '        OPTION(__UNIX_PLATFORM__ "Unix Platform" ON)'
+          add_line "    ENDIF(APPLE)"
+          add_line "ELSE(UNIX)"
+          add_line '    OPTION(__MAC_PLATFORM__ "Apple Platform" OFF)'
+          add_line '    OPTION(__UNIX_PLATFORM__ "Unix Platform" OFF)'
+          add_line "ENDIF(UNIX)"
+          add_new_line
+          add_line "CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/config.h )"
         end
       end
-    
+      
       class ExternalLibrariesTemplate < Ritsu::Template
         def initialize(project)
           super("ProjectCmakeLists -- External Libraries")
@@ -55,11 +75,12 @@ module Ritsu
         def initialize(project)
           super
           @project = project
-          contents << HeaderTemplate.new(project)
-          contents << ""
-          contents << ExternalLibrariesTemplate.new(project)
-          contents << ""
-          contents << DirectoriesTemplate.new(project)
+          
+          add_template HeaderTemplate.new(project)
+          add_new_line
+          add_template ExternalLibrariesTemplate.new(project)
+          add_new_line
+          add_template DirectoriesTemplate.new(project)
         end
       end
     

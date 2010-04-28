@@ -4,6 +4,8 @@ require File.dirname(__FILE__) + '/external_library'
 require File.dirname(__FILE__) + '/utility/single_instance'
 require File.dirname(__FILE__) + '/utility/strings'
 require File.dirname(__FILE__) + '/src_files/project_cmake_lists'
+require File.dirname(__FILE__) + '/src_files/project_config_header_file'
+require File.dirname(__FILE__) + '/src_files/project_config_header_template_file'
 
 module Ritsu
   class Project
@@ -16,6 +18,7 @@ module Ritsu
     attr_reader :src_files
     attr_accessor :project_dir
     attr_reader :cmake_lists
+    attr_reader :config_header_file
     
     def initialize_instance(name)
       if !is_c_name?(name)
@@ -30,6 +33,8 @@ module Ritsu
       @project_dir = File.expand_path('.')
       
       @cmake_lists = Ritsu::SrcFiles::ProjectCmakeLists.new(self)
+      @config_header_file = Ritsu::SrcFiles::ProjectConfigHeaderFile.new(self)
+      @config_header_template_file = Ritsu::SrcFiles::ProjectConfigHeaderTemplateFile.new(self)
     end
     
     def self.create(name)

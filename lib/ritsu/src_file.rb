@@ -42,7 +42,7 @@ module Ritsu
     end
     
     def create
-      FileRobot.create_file(abs_path, "")
+      FileRobot.create_file(abs_path, "\n")
     end
     
     def update
@@ -62,6 +62,15 @@ module Ritsu
     
     def include_in_cmake?
       return true
+    end
+    
+    def self.find_by_src_path(src_path)
+      instances.each do |instance|
+        if instance.src_path == src_path
+          return instance
+        end
+      end
+      nil
     end
   end
 end

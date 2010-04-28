@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + "/../test_helpers"
 class TargetTest < Test::Unit::TestCase
   include Ritsu
   include Ritsu::Targets
-  include SetupProjectAndClearEverythingElse
+  include Ritsu::SetupProjectAndClearEverythingElse
   
   must "contruct instances and keep track of them correctly" do
     Executable.new("abc")

@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + "/../../test_helpers"
 
 class StaticLibraryCMakeListsTest < Test::Unit::TestCase
-  include SetupProjectAndClearEverythingElse
-  include TestCaseWithFileTestData
+  include Ritsu::SetupProjectAndClearEverythingElse
+  include Ritsu::TestCaseWithFileTestData
   include Ritsu::Utility
   
   def data_dir; File.dirname(__FILE__) + "/" + File.basename(__FILE__, ".rb") end
@@ -46,7 +46,6 @@ ADD_LIBRARY(abc STATIC ${ABC_SRC_FILES})
 ##<< TargetCmakeLists -- abc -- Dependencies
 ##>> TargetCmakeLists -- abc -- Dependencies
 CMAKE
-    expected_content.strip!
 
     assert_file_content(expected_content, abc.cmake_lists.abs_path)
   end

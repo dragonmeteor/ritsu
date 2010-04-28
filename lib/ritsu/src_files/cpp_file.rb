@@ -1,10 +1,13 @@
 require File.dirname(__FILE__) + '/../src_file'
 require File.dirname(__FILE__) + '/../project'
 require File.dirname(__FILE__) + '/../utility/instance_set'
+require File.dirname(__FILE__) + '/cpp_file_mixin'
 
 module Ritsu
   module SrcFiles
-    class CppFile < Ritsu::SrcFile    
+    class CppFile < Ritsu::SrcFile
+      include CppFileMixin
+      
       def initialize(src_path, owner)
         super(src_path, owner)
       end

@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + "/../../test_helpers"
 
 class ProjectCMakeListsTest < Test::Unit::TestCase
-  include SetupProjectAndClearEverythingElse
-  include TestCaseWithFileTestData
+  include Ritsu::SetupProjectAndClearEverythingElse
+  include Ritsu::TestCaseWithFileTestData
   include Ritsu::Utility
   
   def data_dir; File.expand_path(File.dirname(__FILE__) + "/" + File.basename(__FILE__, ".rb")) end
@@ -39,6 +39,27 @@ class ProjectCMakeListsTest < Test::Unit::TestCase
 PROJECT(mio)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+
+IF(WIN32)
+    OPTION(__WIN_PLATFORM__ "Windows Platform" ON)
+ELSE(WIN32)
+    OPTION(__WIN_PLATFORM__ "Windows Platform" OFF)
+ENDIF(WIN32)
+
+IF(UNIX)
+    IF(APPLE)
+        OPTION(__MAC_PLATFORM__ "Apple Platform" ON)
+        OPTION(__UNIX_PLATFORM__ "Unix Platform" OFF)
+    ELSE(APPLE)
+        OPTION(__MAC_PLATFORM__ "Apple Platform" OFF)
+        OPTION(__UNIX_PLATFORM__ "Unix Platform" ON)
+    ENDIF(APPLE)
+ELSE(UNIX)
+    OPTION(__MAC_PLATFORM__ "Apple Platform" OFF)
+    OPTION(__UNIX_PLATFORM__ "Unix Platform" OFF)
+ENDIF(UNIX)
+
+CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/config.h )
 ##>> ProjectCmakeLists -- Header
 
 ##<< ProjectCmakeLists -- External Libraries
@@ -47,7 +68,6 @@ SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 ##<< ProjectCmakeLists -- Directories
 ##>> ProjectCmakeLists -- Directories
 TEXT
-    expected_content.strip!
     
     assert_file_content(expected_content, @project.cmake_lists.abs_path)
   end
@@ -87,6 +107,27 @@ CMAKE
 PROJECT(mio)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+
+IF(WIN32)
+    OPTION(__WIN_PLATFORM__ "Windows Platform" ON)
+ELSE(WIN32)
+    OPTION(__WIN_PLATFORM__ "Windows Platform" OFF)
+ENDIF(WIN32)
+
+IF(UNIX)
+    IF(APPLE)
+        OPTION(__MAC_PLATFORM__ "Apple Platform" ON)
+        OPTION(__UNIX_PLATFORM__ "Unix Platform" OFF)
+    ELSE(APPLE)
+        OPTION(__MAC_PLATFORM__ "Apple Platform" OFF)
+        OPTION(__UNIX_PLATFORM__ "Unix Platform" ON)
+    ENDIF(APPLE)
+ELSE(UNIX)
+    OPTION(__MAC_PLATFORM__ "Apple Platform" OFF)
+    OPTION(__UNIX_PLATFORM__ "Unix Platform" OFF)
+ENDIF(UNIX)
+
+CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/config.h )
 ##>> ProjectCmakeLists -- Header
 
 ##<< ProjectCmakeLists -- External Libraries
@@ -101,7 +142,6 @@ ADD_SUBDIRECTORY(ghi)
 ADD_SUBDIRECTORY(abc)
 ##>> ProjectCmakeLists -- Directories
 TEXT
-    expected_content.strip!
 
     assert_file_content(expected_content, @project.cmake_lists.abs_path)
   end

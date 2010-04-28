@@ -2,20 +2,17 @@ require File.dirname(__FILE__) + '/../src_file'
 require File.dirname(__FILE__) + '/../project'
 require File.dirname(__FILE__) + '/../utility/instance_set'
 require File.dirname(__FILE__) + '/../utility/file_robot'
+require File.dirname(__FILE__) + '/header_file_mixin'
 
 module Ritsu
   module SrcFiles
     class HeaderFile < Ritsu::SrcFile
-      include Ritsu::Utility::InstanceSet
+      include HeaderFileMixin
     
       def initialize(src_path, owner)
         super(src_path, owner)
       end
-    
-      def include_guard
-        '__' + src_path.gsub(/[.\/]+/,'_').upcase + '__'
-      end
-    
+      
       def create
         Ritsu::Utility::FileRobot.create_file(abs_path,
           "#ifndef #{include_guard}\n" +
@@ -26,9 +23,9 @@ module Ritsu
           "////////////////////\n" +
           "\n" +
           "#endif\n")
-      end
+      end          
     end
-  
+    
     module AddHeaderFile
       def add_header_file(path, options={})
         src_path = compute_src_path(path, options)

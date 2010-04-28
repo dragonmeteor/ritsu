@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + "/../../test_helpers"
 
 class HeaderFileTest < Test::Unit::TestCase
-  include SetupProjectAndClearEverythingElse
-  include TestCaseWithFileTestData
+  include Ritsu::SetupProjectAndClearEverythingElse
+  include Ritsu::TestCaseWithFileTestData
   include Ritsu::Utility
   
   def setup
@@ -15,7 +15,7 @@ class HeaderFileTest < Test::Unit::TestCase
   
   must "include_guard computed correct" do
     @header_file = Ritsu::SrcFiles::HeaderFile.new("abc/def.h", @target)
-    assert_equal "__ABC_DEF_H__", @header_file.include_guard
+    assert_equal "__PROJECT_ABC_DEF_H__", @header_file.include_guard
   end
   
   file_test "create" do
@@ -25,8 +25,8 @@ class HeaderFileTest < Test::Unit::TestCase
     end
     assert_file_exists(@header_file.abs_path)
     expected_content = <<-HEADER_FILE
-#ifndef __ABC_DEF_H__
-#define __ABC_DEF_H__
+#ifndef __PROJECT_ABC_DEF_H__
+#define __PROJECT_ABC_DEF_H__
 
 ////////////////////
 // YOUR CODE HERE //

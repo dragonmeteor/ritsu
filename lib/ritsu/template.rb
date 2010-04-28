@@ -2,12 +2,10 @@ require File.dirname(__FILE__) + '/block'
 
 module Ritsu
   class Template
-    attr_reader :id
-    attr_accessor :contents
+    include BlockMixin 
     
-    def initialize(id = nil, contents=[])
-      @id = id
-      @contents = contents
+    def initialize(id = nil, options = {})
+      initialize_block_mixin(id, options)
     end
     
     ##
@@ -24,14 +22,14 @@ module Ritsu
     
     ##
     # @return (Template) the position of the child template with the given ID in the contents array. 
-    #   -1 if there is no such child template.
+    #   nil if there is no such child template.
     def child_template_with_id_position(id)
       contents.length.times do |i|
         if contents[i].kind_of?(Template) and contents[i].id == id
           return i
         end
       end
-      return -1
+      return nil
     end
     
     def child_templates
@@ -39,7 +37,9 @@ module Ritsu
     end
     
     def create_block(options={})
-      block = Block.new(id, [], options)
+      options = {}.merge(options)
+      options[:local_indentation] = local_indentation
+      block = Block.new(id, options)
       contents.each do |content|
         if !content.kind_of?(Template)
           block.contents << content
@@ -53,5 +53,17 @@ module Ritsu
     def update_block(block, options={})
       raise NotImplmentedError.new
     end
-  end  
+    
+    def add_template(template)
+      add_block_structure(template)
+    end
+    
+    def add_content(content)
+      if content.kind_of?(Template)
+        add_template(content)
+      else
+        add_line_or_other_content(content)
+      end
+    end
+  end
 end

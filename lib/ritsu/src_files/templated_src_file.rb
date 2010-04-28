@@ -25,7 +25,7 @@ module Ritsu::SrcFiles
         :block_start_prefix => block_start_prefix,
         :block_end_prefix => block_end_prefix)
       template.update_block(block)
-      Ritsu::Utility::FileRobot.create_file(abs_path, block.to_s(:no_delimiter=>true))
+      Ritsu::Utility::FileRobot.create_file(abs_path, block.to_s(:no_delimiter=>true) + "\n")
     end
     
     def update_content
@@ -35,7 +35,7 @@ module Ritsu::SrcFiles
         :block_end_prefix => block_end_prefix)
       template.update_block(block)
       
-      new_content = block.to_s(:no_delimiter=>true)
+      new_content = block.to_s(:no_delimiter=>true) + "\n"
       if new_content != file_content
         Ritsu::Utility::FileRobot.create_file(abs_path, new_content)
       end

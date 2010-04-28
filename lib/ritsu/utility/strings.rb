@@ -18,6 +18,24 @@ module Ritsu
           str
         end
       end
+      module_function :first
+      
+      def leading_whitespaces(str)
+        /^\s*/.match(str)[0]
+      end
+      module_function :leading_whitespaces
+      
+      def convert_whitespaces_to_spaces(str, options={})
+        options = {:soft_tab => 4}.merge(options)
+        str.sub("\t", " "*options[:soft_tab]).sub(/\n\r/, "")
+      end
+      module_function :convert_whitespaces_to_spaces
+      
+      def leading_spaces(str, options={})
+        Ritsu::Utility::Strings.convert_whitespaces_to_spaces(
+          Ritsu::Utility::Strings.leading_whitespaces(str), options)
+      end
+      module_function :leading_spaces
     end
   end
 end

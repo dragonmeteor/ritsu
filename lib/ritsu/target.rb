@@ -103,16 +103,27 @@ module Ritsu
       end
     end
     
-    def add_dependency_target(name)
-      dependency = Target.find_by_name(name)
-      if !dependency.nil?
-        dependency_targets << dependency
-        dependency.dependency_libraries.each do |library|
-          dependency_libraries << library
+    def add_dependency_target(target_or_target_name)
+      if target_or_target_name.kind_of?(String)
+        dependency = Target.find_by_name(target_or_target_name)
+        if dependency.nil?
+          raise ArgumentError.new("no target with name '#{name}'")
         end
       else
-        raise ArgumentError.new("no target with name '#{name}'")
+        dependency = target_or_target_name
       end
+      
+      dependency_targets << dependency
+      dependency.dependency_libraries.each do |library|
+        dependency_libraries << library
+      end
+    end
+    
+    def dependency_targets_sorted_by_topological_order
+      Target.compute_topological_orders
+      result = dependency_targets.to_a
+      result.sort! {|x,y| x.topological_order - y.topological_order}
+      result
     end
   end
   

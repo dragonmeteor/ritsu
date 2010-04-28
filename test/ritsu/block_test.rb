@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + "/../test_helpers"
 
 class BlockTest < Test::Unit::TestCase
-  include TestCaseWithFileTestData
+  include Ritsu::TestCaseWithFileTestData
   include Ritsu::Utility
   
   def data_dir; File.dirname(__FILE__) + "/" + File.basename(__FILE__, ".rb") end
@@ -77,11 +77,11 @@ class BlockTest < Test::Unit::TestCase
   
   must "convert to string correctly" do
     block = Ritsu::Block.new("123",
-      [
+      :contents => [
         "abc",
         "def",
         Ritsu::Block.new("456",
-          [
+          :contents => [
             "ghi"
           ]
         ),
@@ -101,12 +101,12 @@ class BlockTest < Test::Unit::TestCase
   end
   
   must "convert to string correct when the no_delimiter option is set" do
-    block = Ritsu::Block.new("123",
-      [
+    block = Ritsu::Block.new("123", 
+      :contents => [
         "abc",
         "def",
         Ritsu::Block.new("456",
-          [
+          :contents => [
             "ghi"
           ]
         ),
@@ -125,11 +125,11 @@ class BlockTest < Test::Unit::TestCase
   
   file_test "write to file" do
     block = Ritsu::Block.new("123",
-      [
+      :contents => [
         "abc",
         "def",
         Ritsu::Block.new("456",
-          [
+          :contents => [
             "ghi"
           ]
         ),
@@ -163,5 +163,35 @@ class BlockTest < Test::Unit::TestCase
     end
     block = Ritsu::Block.parse(:file => output_path("block.txt"))
     check_block_A(block)
+  end
+  
+  BLOCK_C_ARRAY = [
+    "123",
+    "    //<< abc",
+    "    456",
+    "        //<< def",
+    "           789",
+    "        //>> def",
+    "    //>> abc",
+  ]
+  
+  must "parse indented blocks correctly" do
+    block = Ritsu::Block.parse(BLOCK_C_ARRAY)
+    assert_equal "    ", block.contents[1].local_indentation
+    assert_equal "456", block.contents[1].contents[0]
+    assert_equal "    ", block.contents[1].contents[1].local_indentation
+    assert_equal "   789", block.contents[1].contents[1].contents[0]
+    
+    expected_string = <<-STRING
+123
+    //<< abc
+    456
+        //<< def
+           789
+        //>> def
+    //>> abc
+STRING
+    expected_string.strip!
+    assert_equal expected_string, block.to_s(:no_delimiter=>true)
   end
 end

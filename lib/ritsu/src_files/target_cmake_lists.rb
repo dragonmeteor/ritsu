@@ -110,8 +110,8 @@ module Ritsu
         attr_reader :source_files_template
         attr_reader :dependencies_template
       
-        def initialize(target, id = nil, contents=[])
-          super(id, contents)
+        def initialize(target, id = nil)
+          super(id)
           @target = target
         
           @external_libraries_template = ExternalLibrariesTemplate.new(@target)
@@ -128,7 +128,6 @@ module Ritsu
         
           @dependencies_template = DependenciesTemplate.new(@target)
           contents << @dependencies_template
-          contents << ""
         end
       end
     

@@ -1,6 +1,11 @@
 require File.dirname(__FILE__) + "/../test_helpers"
 
-class ProjectTest < Test::Unit::TestCase  
+class ProjectTest < Test::Unit::TestCase
+  include Ritsu::TestCaseWithFileTestData
+  include Ritsu::Utility
+  
+  def data_dir; File.dirname(__FILE__) + "/" + File.basename(__FILE__, ".rb") end
+  
   def setup
     Ritsu::Target.instances.clear
     Ritsu::SrcFile.instances.clear
@@ -80,5 +85,19 @@ CMAKE
     assert hello.targets.any? { |x| x.name == 'abc' }
     assert hello.targets.any? { |x| x.name == 'def' }
     assert hello.targets.any? { |x| x.name == 'ghi' }
+  end
+  
+  file_test "create config header file" do
+    hello = Ritsu::Project.create('hello')
+    hello.project_dir = output_dir
+    assert hello.respond_to?(:config_header_file)
+    assert hello.src_files.any? {|x| x.src_path != "config.h"}
+    
+    FileRobot.quietly do
+      hello.update
+    end
+    
+    assert_output_file_exists("src/config.h")
+    assert_output_file_content("\n", "src/config.h")
   end
 end

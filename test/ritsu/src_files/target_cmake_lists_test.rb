@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + "/../../test_helpers"
 
 class TargetCMakeListsTest < Test::Unit::TestCase
-  include SetupProjectAndClearEverythingElse
+  include Ritsu::SetupProjectAndClearEverythingElse
   
   must "src_path must be target_name/CMakeLists.txt" do
     target = Ritsu::Targets::Executable.new("abc", :project=>@project)

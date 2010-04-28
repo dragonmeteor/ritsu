@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + "/../../test_helpers"
 
 class CppFileTest < Test::Unit::TestCase
-  include SetupProjectAndClearEverythingElse
-  include TestCaseWithFileTestData
+  include Ritsu::SetupProjectAndClearEverythingElse
+  include Ritsu::TestCaseWithFileTestData
   include Ritsu::Utility
   
   def data_dir; File.dirname(__FILE__) + "/" + File.basename(__FILE__, ".rb") end
@@ -14,12 +14,12 @@ class CppFileTest < Test::Unit::TestCase
   end
   
   file_test "create" do
-    @header_file = Ritsu::SrcFiles::CppFile.new("abc/def.cpp", @target)
+    @cpp_file = Ritsu::SrcFiles::CppFile.new("abc/def.cpp", @target)
     FileRobot.quietly do
-      @header_file.create
+      @cpp_file.create
     end
-    assert_file_exists(@header_file.abs_path)
-    assert_file_content("", @header_file.abs_path)
+    assert_file_exists(@cpp_file.abs_path)
+    assert_file_content("\n", @cpp_file.abs_path)
   end
 
   file_test "update_does_nothing" do

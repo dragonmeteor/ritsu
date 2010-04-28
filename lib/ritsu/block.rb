@@ -2,26 +2,86 @@ require 'rubygems'
 require 'active_support/core_ext/string/starts_ends_with'
 require File.dirname(__FILE__) + '/utility/check_upon_add_set'
 require File.dirname(__FILE__) + '/utility/files'
+require File.dirname(__FILE__) + '/utility/strings'
 
 module Ritsu
-  class Block    
+  module BlockMixin
     attr_reader :id
     attr_accessor :contents
-    attr_reader :block_start_prefix
-    attr_reader :block_end_prefix
-    attr_reader :block_content_prefix
+    attr_accessor :local_indentation
+    attr_accessor :indent_level
+    attr_accessor :indent_length
+    
+    def initialize_block_mixin(id = nil, options={})
+      options = {
+        :contents => [],
+        :local_indentation => "", 
+        :indent_length=>4
+      }.merge(options)
+      
+      @id = id
+      @contents = options[:contents]
+      @local_indentation = options[:local_indentation]
+      @indent_length = options[:indent_length]
+      @indent_level = 0
+    end
+    
+    def add_line(line)
+      contents << " " * (indent_level * indent_length) + line
+    end
+    
+    def add_new_line
+      add_line("")
+    end
+    
+    protected
+    def add_block_structure(block)
+      block.local_indentation = block.local_indentation + " " * (indent_level * indent_length)
+      contents << block
+    end
+    
+    def add_line_or_other_content(content)
+      if content.kind_of?(String)
+        add_line(content)
+      else
+        contents << content
+      end
+    end
+    
+    public
+    def clear_contents
+      contents.clear
+    end
+    
+    def indent
+      @indent_level += 1
+    end
+    
+    def outdent
+      @indent_level -= 1
+    end
+    
+    def block_structure?
+      true
+    end
+  end
+  
+  class Block
+    include BlockMixin
+    
+    attr_accessor :block_start_prefix
+    attr_accessor :block_end_prefix
         
-    def initialize(id = nil, contents=[], options={})
+    def initialize(id = nil, options={})
       options = {
         :block_start_prefix => "//<<",
         :block_end_prefix => "//>>"
       }.merge(options)
-      
-      @id = id
-      @contents = contents
+
       @block_start_prefix = options[:block_start_prefix]
       @block_end_prefix = options[:block_end_prefix]
-      @block_content_prefix = options[:block_content_prefix]
+      
+      initialize_block_mixin(id, options)
     end
     
     def self.extract_block_id(str, prefix)
@@ -41,21 +101,39 @@ module Ritsu
       @block_end_prefix = options[:block_end_prefix]
       
       block_stack = [self]
+      global_indentation_length = 0
+      
+      get_local_indentation = Proc.new do |line|
+        leading_spaces_length = Ritsu::Utility::Strings.leading_spaces(line, options).length
+        remaining_space_length = leading_spaces_length - global_indentation_length
+        if remaining_space_length < 0 then remaining_space_length = 0 end
+        " " * remaining_space_length
+      end
+      
+      append_line = Proc.new do |line|
+        block_stack.last.contents << (get_local_indentation.call(line) + line.lstrip)
+      end
+      
       lines.each do |line|
         if line.strip.starts_with?(block_start_prefix)
           id = extract_block_id(line, block_start_prefix)
-          block = Block.new(id, [], options)
+          local_indentation = get_local_indentation.call(line)
+          
+          options[:local_indentation] = local_indentation
+          block = Block.new(id, options)
           block_stack.last.contents << block
           block_stack.push(block)
+          global_indentation_length += block.local_indentation.length
         elsif line.strip.starts_with?(block_end_prefix)
           id = extract_block_id(line, block_end_prefix)
           if block_stack.last.id == id
-            block_stack.pop()
+            block = block_stack.pop()
+            global_indentation_length -= block.local_indentation.length
           else
-            block_stack.last.contents << line
+            append_line.call(line)
           end
         else
-          block_stack.last.contents << line
+          append_line.call(line)
         end
       end
       
@@ -65,7 +143,7 @@ module Ritsu
     end
 
     def parse_string(string, options={})
-      lines = string.split("\n")
+      lines = string.rstrip.split("\n")
       parse_lines(lines, options)
     end
     
@@ -77,14 +155,20 @@ module Ritsu
     ##
     # In all case, the generated string shall have no trailing whitespaces.
     def to_s(options={})
-      options = {:no_delimiter => false}.merge(options)
+      options = {:no_delimiter => false, :indentation => ""}.merge(options)
+      no_delimiter = options.delete(:no_delimiter)
+      indentation = options.delete(:indentation)
       
       io = StringIO.new
-      io << block_start_prefix + " " + id + "\n" unless options[:no_delimiter]
+      io << indentation + local_indentation + block_start_prefix + " " + id + "\n" unless no_delimiter
       contents.each do |content|
-        io << content.to_s + "\n"
+        if content.kind_of?(Block)
+          io << content.to_s({:indentation=>indentation+local_indentation}.merge(options)) + "\n"
+        else
+          io << indentation + local_indentation + content.to_s + "\n"
+        end
       end
-      io << block_end_prefix + " " + id unless options[:no_delimiter]
+      io << indentation + local_indentation + block_end_prefix + " " + id unless no_delimiter
       
       io.string.rstrip
     end
@@ -150,14 +234,26 @@ module Ritsu
     
     ##
     # @return (Integer) the position of the child block with the given ID in the contents array. 
-    #   -1 if there is no such child block.
+    #   nil if there is no such child block.
     def child_block_with_id_position(id)
       contents.length.times do |i|
         if contents[i].kind_of?(Block) and contents[i].id == id
           return i
         end
       end
-      return -1
+      return nil
+    end
+    
+    def add_block(block)
+      add_block_structure(block)
+    end
+    
+    def add_content(content)
+      if content.kind_of?(Block)
+        add_block(content)
+      else
+        add_line_or_other_content(content)
+      end
     end
   end
 end

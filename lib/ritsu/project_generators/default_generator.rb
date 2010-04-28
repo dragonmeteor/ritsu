@@ -61,7 +61,6 @@ module Ritsu
         create_dir("")
       
         create_dir("build")
-        create_dir("")
         create_dir("meta")
         create_dir("src")
         create_dir("src/cmake_modules")

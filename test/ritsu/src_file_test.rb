@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + "/../test_helpers"
 
 class SrcFileTest < Test::Unit::TestCase
-  include SetupProjectAndClearEverythingElse
+  include Ritsu::SetupProjectAndClearEverythingElse
   
   def self.test_valid_src_path(src_path)
     must "#{src_path} is a valid source path" do

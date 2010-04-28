@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + "/../../test_helpers"
 
 class FileRobotTest < Test::Unit::TestCase
   include Ritsu::Utility
-  include TestCaseWithFileTestData
+  include Ritsu::TestCaseWithFileTestData
   
   def data_dir; File.dirname(__FILE__) + "/" + File.basename(__FILE__, ".rb") end
   

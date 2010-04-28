@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + "/../../test_helpers"
 
 class StaticLibraryTest < Test::Unit::TestCase
   include Ritsu::Targets
-  include SetupProjectAndClearEverythingElse
+  include Ritsu::SetupProjectAndClearEverythingElse
   
   must "be able to be depended on" do
     a = StaticLibrary.new('a')

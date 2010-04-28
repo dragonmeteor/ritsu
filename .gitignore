@@ -1,7 +1,10 @@
 doc/*
 .yardoc/*
 .pkg/*
-test/**/output/*
+test/*/output/*
+test/*/*/output/*
+test/*/*/*/output/*
 .hgignore
 .hg/*
 ritsu.gemspec
+pkg/*

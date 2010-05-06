@@ -10,9 +10,15 @@ module Ritsu::Targets
     
     def initialize(name, options={})
       super(name, options)
+      initialize_cmake_lists
+    end
+    
+    protected
+    def initialize_cmake_lists
       @cmake_lists = Ritsu::SrcFiles::SharedLibraryCmakeLists.new(self)
     end
-        
+      
+    public
     def can_be_depended_on?
       true
     end

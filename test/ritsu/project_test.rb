@@ -100,4 +100,29 @@ CMAKE
     assert_output_file_exists("src/config.h")
     assert_output_file_content("\n", "src/config.h")
   end
+  
+  file_test "create config header template file" do
+    hello = Ritsu::Project.create('hello')
+    hello.project_dir = output_dir
+    assert hello.respond_to?(:config_header_template_file)
+    assert hello.src_files.any? {|x| x.src_path != "config.h.in"}
+
+    FileRobot.quietly do
+      hello.update
+    end
+
+    assert_output_file_exists("src/config.h.in")
+    
+    expected_content = <<-TEXT
+#ifndef __PROJECT_CONFIG_H__
+#define __PROJECT_CONFIG_H__
+
+#cmakedefine __WIN_PLATFORM__
+#cmakedefine __MAC_PLATFORM__
+#cmakedefine __UNIX_PLATFORM__
+
+#endif
+TEXT
+    assert_output_file_content("\n", "src/config.h")
+  end
 end

@@ -19,6 +19,7 @@ module Ritsu
     attr_accessor :project_dir
     attr_reader :cmake_lists
     attr_reader :config_header_file
+    attr_reader :config_header_template_file
     
     def initialize_instance(name)
       if !is_c_name?(name)

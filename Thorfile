@@ -60,9 +60,9 @@ class Default < Thor
       s.platform = Gem::Platform::RUBY
       s.summary = "A code generation system that facilitates building C/C++ software with the help of CMake and Doxygen"
       s.email = "dragonmeteor@gmail.com"
-      s.homepage = "http://lab.moekaku.com"
+      s.homepage = "http://github.com/dragonmeteor/ritsu"
       s.description = "A code generation system that facilitates building C/C++ software with the help of CMake and Doxygen"
-      s.authors = ['Pramook Khungurn']
+      s.authors = ['dragonmeteor']
       
       s.has_rdoc = true
       s.extra_rdoc_files = EXTRA_RDOC_FILES

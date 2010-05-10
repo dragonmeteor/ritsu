@@ -34,8 +34,6 @@ module Ritsu
           add_line '    OPTION(__MAC_PLATFORM__ "Apple Platform" OFF)'
           add_line '    OPTION(__UNIX_PLATFORM__ "Unix Platform" OFF)'
           add_line "ENDIF(UNIX)"
-          add_new_line
-          add_line "CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/config.h )"
         end
       end
       
@@ -58,7 +56,7 @@ module Ritsu
       class DirectoriesTemplate < Ritsu::Template
         def initialize(project)
           super("ProjectCmakeLists -- Directories")
-          @project = project
+          @project = project          
         end
       
         def update_block(block, options={})
@@ -66,6 +64,17 @@ module Ritsu
           @project.targets_sorted_by_topological_order.each do |target|
             block.contents << "ADD_SUBDIRECTORY(#{target.name})"
           end
+        end
+      end
+      
+      class ConfigureFileTemplate < Ritsu::Template
+        include Ritsu::TemplatePolicies::Overwrite
+        
+        def initialize(project)
+          super("ProjectCmakeLists -- Configure File")
+          @project = project
+          
+          add_line "CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/config.h )"
         end
       end
     
@@ -81,6 +90,8 @@ module Ritsu
           add_template ExternalLibrariesTemplate.new(project)
           add_new_line
           add_template DirectoriesTemplate.new(project)
+          add_new_line
+          add_template ConfigureFileTemplate.new(project)
         end
       end
     

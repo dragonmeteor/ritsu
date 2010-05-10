@@ -58,8 +58,6 @@ ELSE(UNIX)
     OPTION(__MAC_PLATFORM__ "Apple Platform" OFF)
     OPTION(__UNIX_PLATFORM__ "Unix Platform" OFF)
 ENDIF(UNIX)
-
-CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/config.h )
 ##>> ProjectCmakeLists -- Header
 
 ##<< ProjectCmakeLists -- External Libraries
@@ -67,6 +65,10 @@ CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/config.h )
 
 ##<< ProjectCmakeLists -- Directories
 ##>> ProjectCmakeLists -- Directories
+
+##<< ProjectCmakeLists -- Configure File
+CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/config.h )
+##>> ProjectCmakeLists -- Configure File
 TEXT
     
     assert_file_content(expected_content, @project.cmake_lists.abs_path)
@@ -126,8 +128,6 @@ ELSE(UNIX)
     OPTION(__MAC_PLATFORM__ "Apple Platform" OFF)
     OPTION(__UNIX_PLATFORM__ "Unix Platform" OFF)
 ENDIF(UNIX)
-
-CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/config.h )
 ##>> ProjectCmakeLists -- Header
 
 ##<< ProjectCmakeLists -- External Libraries
@@ -141,6 +141,10 @@ FIND_PACKAGE(Qt4 REQUIRED)
 ADD_SUBDIRECTORY(ghi)
 ADD_SUBDIRECTORY(abc)
 ##>> ProjectCmakeLists -- Directories
+
+##<< ProjectCmakeLists -- Configure File
+CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/config.h )
+##>> ProjectCmakeLists -- Configure File
 TEXT
 
     assert_file_content(expected_content, @project.cmake_lists.abs_path)

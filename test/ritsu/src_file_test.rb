@@ -14,6 +14,7 @@ class SrcFileTest < Test::Unit::TestCase
   test_valid_src_path "SomeProject/Something_else.cpp"
   test_valid_src_path "mio/koakuma/shadow_gl_renderer.cpp"
   test_valid_src_path ".abc"
+  test_valid_src_path "abc-hello.c"
   
   def self.test_invalid_src_path(src_path)
     must "#{src_path} is not a valid source path" do

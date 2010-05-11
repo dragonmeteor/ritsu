@@ -31,6 +31,12 @@ module Ritsu
               block.contents << dependency_target.cmake_depend_script
             end
           end
+          
+          if target.library?
+            if target.cmake_depend_script.strip.length > 0
+              block.contents << target.cmake_depend_script
+            end
+          end
         end
       end
     

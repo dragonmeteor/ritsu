@@ -12,7 +12,7 @@ module Ritsu
     attr_reader :owner
     
     def self.is_valid_src_path?(p)
-      p =~ /^[A-Za-z0-9_.][A-Za-z0-9_.\/]*$/
+      p =~ /^[A-Za-z0-9_.][A-Za-z0-9_.\-\/]*$/
     end
         
     def initialize(src_path, owner)

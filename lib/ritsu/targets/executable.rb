@@ -28,6 +28,10 @@ module Ritsu::Targets
     def static_library?
       false
     end
+    
+    def library?
+      false
+    end
   end
 end
 

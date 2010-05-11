@@ -112,6 +112,7 @@ module Ritsu
       else
         dependency = target_or_target_name
       end
+      dependency_targets << dependency
     end
     
     def dependency_targets_sorted_by_topological_order

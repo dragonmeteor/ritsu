@@ -112,11 +112,6 @@ module Ritsu
       else
         dependency = target_or_target_name
       end
-      
-      dependency_targets << dependency
-      dependency.dependency_libraries.each do |library|
-        dependency_libraries << library
-      end
     end
     
     def dependency_targets_sorted_by_topological_order

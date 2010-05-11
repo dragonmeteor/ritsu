@@ -28,8 +28,8 @@ class ExecutableCMakeListsTest < Test::Unit::TestCase
     assert_file_exists(abc.cmake_lists.abs_path)
     
     expected_content = <<-CMAKE
-##<< TargetCmakeLists -- abc -- External Libraries
-##>> TargetCmakeLists -- abc -- External Libraries
+##<< TargetCmakeLists -- abc -- Libraries
+##>> TargetCmakeLists -- abc -- Libraries
 
 ##<< TargetCmakeLists -- abc -- Custom Commands
 ##>> TargetCmakeLists -- abc -- Custom Commands

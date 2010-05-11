@@ -1,11 +1,11 @@
 require 'rubygems'
 require 'active_support'
-require File.dirname(__FILE__) + '/../target'
+require File.dirname(__FILE__) + '/library'
 require File.dirname(__FILE__) + '/../utility/instance_set'
 require File.dirname(__FILE__) + '/../src_files/shared_library_cmake_lists'
 
 module Ritsu::Targets
-  class SharedLibrary < Ritsu::Target
+  class SharedLibrary < Ritsu::Targets::Library
     attr_reader :cmake_lists
     
     def initialize(name, options={})
@@ -19,14 +19,6 @@ module Ritsu::Targets
     end
       
     public
-    def can_be_depended_on?
-      true
-    end
-    
-    def executable?
-      false
-    end
-    
     def shared_library?
       true
     end

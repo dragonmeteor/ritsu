@@ -7,21 +7,29 @@ require File.dirname(__FILE__) + '/../src_files/templated_src_file'
 module Ritsu
   module SrcFiles
     class TargetCmakeLists < Ritsu::SrcFiles::TemplatedSrcFile
-      class ExternalLibrariesTemplate < Ritsu::Template
+      class LibrariesTemplate < Ritsu::Template
         attr_accessor :target
       
         def initialize(target)
-          super("TargetCmakeLists -- #{target.name} -- External Libraries")
+          super("TargetCmakeLists -- #{target.name} -- Libraries")
           @target = target
         end
       
         def update_block(block, options = {})
           external_libraries = target.dependency_libraries.to_a
           external_libraries.sort! {|x,y| x.name <=> y.name}
+          
+          dependency_targets = target.dependency_targets.to_a
+          dependency_targets.sort! {|x,y| x.name <=> y.name}
         
           block.contents.clear
           external_libraries.each do |external_library|
-            block.contents << external_library.cmake_include_script
+            block.contents << external_library.cmake_depend_script
+          end
+          dependency_targets.each do |dependency_target|
+            if dependency_target.cmake_depend_script.strip.length > 0
+              block.contents << dependency_target.cmake_depend_script
+            end
           end
         end
       end
@@ -105,7 +113,7 @@ module Ritsu
       class Template < Ritsu::Template
         include Ritsu::TemplatePolicies::FlexibleBlockMatchingAndCreateMissingBlockButLeaveUserTextBe
         attr_reader :target
-        attr_reader :external_libraries_template
+        attr_reader :libraries_template
         attr_reader :custom_commands_template
         attr_reader :source_files_template
         attr_reader :dependencies_template
@@ -114,8 +122,8 @@ module Ritsu
           super(id)
           @target = target
         
-          @external_libraries_template = ExternalLibrariesTemplate.new(@target)
-          contents << @external_libraries_template
+          @libraries_template = LibrariesTemplate.new(@target)
+          contents << @libraries_template
           contents << ""
         
           @custom_commands_template = CustomCommandsTemplate.new(@target)

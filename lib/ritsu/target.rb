@@ -95,7 +95,7 @@ module Ritsu
     end
     
     def add_external_library(name)
-      external_library = Ritsu::ExternalLibrary.find(name.to_s)
+      external_library = Ritsu::ExternalLibrary.find_by_name(name.to_s)
       if !external_library.nil?
         dependency_libraries << external_library
       else

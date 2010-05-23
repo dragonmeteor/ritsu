@@ -34,4 +34,9 @@ class ExternalLibraryTest < Test::Unit::TestCase
       ExternalLibrary.new('qt')
     end
   end
+  
+  must "find_by_name correctly" do
+    qt = ExternalLibrary.new('qt')
+    assert_equal qt, ExternalLibrary.find_by_name('qt')
+  end
 end

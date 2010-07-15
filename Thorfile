@@ -17,7 +17,7 @@ end.to_a + ['Thorfile']
 
 class Default < Thor
   include Thor::RakeCompat
-    
+      
   Rake::TestTask.new do |t|
     t.libs << 'lib'
     test_files = FileList['test/**/*_test.rb']
@@ -88,7 +88,14 @@ class Default < Thor
       s.add_development_dependency 'maruku', '>= 0.5.9'
     end
 
-    Jeweler::GemcutterTasks.new
+    Jeweler::GemcutterTasks.new    
+    
+    desc "fast_install", "Install gem without RI and RDoc"
+    def fast_install
+      build
+      version = File.read(File.dirname(__FILE__) + '/VERSION').strip
+      sh "gem install pkg/ritsu-#{version}.gem --no-ri --no-rdoc"
+    end
   rescue LoadError
     puts "Jeweler, or one of its dependencies, is not available. Install it with: gem install jeweler"
   end

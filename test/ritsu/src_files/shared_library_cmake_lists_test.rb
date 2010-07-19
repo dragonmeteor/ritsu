@@ -45,6 +45,9 @@ ADD_LIBRARY(abc SHARED ${ABC_SRC_FILES})
 
 ##<< TargetCmakeLists -- abc -- Dependencies
 ##>> TargetCmakeLists -- abc -- Dependencies
+
+##<< TargetCmakeLists -- abc -- Install
+##>> TargetCmakeLists -- abc -- Install
 CMAKE
 
     assert_file_content(expected_content, abc.cmake_lists.abs_path)

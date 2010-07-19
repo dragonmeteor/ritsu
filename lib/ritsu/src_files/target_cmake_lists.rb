@@ -115,7 +115,29 @@ module Ritsu
           block.contents << ")"
         end
       end
-    
+      
+      class InstallTemplate < Ritsu::Template        
+        attr_reader :target
+        
+        def initialize(target)
+          super("TargetCmakeLists -- #{target.name} -- Install")
+          @target = target
+          
+        end
+        
+        def update_block(block, options = {})
+          block.contents.clear
+          
+          if target.install?
+            block.add_line "INSTALL(TARGETS #{target.name}"
+            block.add_line "    RUNTIME DESTINATION bin"
+            block.add_line "    LIBRARY DESTINATION lib"
+            block.add_line ")"
+          end
+        end
+        
+      end
+      
       class Template < Ritsu::Template
         include Ritsu::TemplatePolicies::FlexibleBlockMatchingAndCreateMissingBlockButLeaveUserTextBe
         attr_reader :target
@@ -123,6 +145,7 @@ module Ritsu
         attr_reader :custom_commands_template
         attr_reader :source_files_template
         attr_reader :dependencies_template
+        attr_reader :install_template
       
         def initialize(target, id = nil)
           super(id)
@@ -142,6 +165,10 @@ module Ritsu
         
           @dependencies_template = DependenciesTemplate.new(@target)
           contents << @dependencies_template
+          contents << ""
+          
+          @install_template = InstallTemplate.new(@target)
+          contents << @install_template
         end
       end
     

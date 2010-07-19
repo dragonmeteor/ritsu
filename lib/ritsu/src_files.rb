@@ -12,3 +12,4 @@ require File.dirname(__FILE__) + '/src_files/shared_library_cmake_lists'
 require File.dirname(__FILE__) + '/src_files/static_library_cmake_lists'
 require File.dirname(__FILE__) + '/src_files/project_config_header_file'
 require File.dirname(__FILE__) + '/src_files/project_config_header_template_file'
+require File.dirname(__FILE__) + "/src_files/unit"

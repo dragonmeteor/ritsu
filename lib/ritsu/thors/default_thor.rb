@@ -13,9 +13,9 @@ module Ritsu::Thors
     method_option :generator, :type => :string
     def cmake
       prepare_cmake_generator
-            
-      if !File.exists?(File.dirname(__FILE__) + "/build")
-        FileUtils.mkdir_p(File.dirname(__FILE__) + "/build")
+      
+      if !File.exists?(Ritsu::Project.instance.project_dir + "/build")
+        FileUtils.mkdir_p(Ritsu::Project.instance.project_dir + "/build")
       end
 
       FileUtils.chdir("build", :verbose => true)

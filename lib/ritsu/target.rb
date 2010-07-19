@@ -38,6 +38,7 @@ module Ritsu
       @src_files = Set.new
       @custom_commands = []
       @topological_order = 0
+      @install = false
       
       Target.instances << self
       @project.targets << self
@@ -47,6 +48,14 @@ module Ritsu
       if instances.select { |x| x.name == instance.name }.length > 1
         raise "target with name '#{instance.name}' already exists"
       end
+    end
+    
+    def install?
+      @install
+    end
+    
+    def setup_install
+      @install = true
     end
         
     def src_dir
@@ -103,6 +112,12 @@ module Ritsu
       end
     end
     
+    def add_external_libraries(*names)
+      names.each do |name|
+        add_external_library(name)
+      end
+    end
+    
     def add_dependency_target(target_or_target_name)
       if target_or_target_name.kind_of?(String)
         dependency = Target.find_by_name(target_or_target_name)
@@ -113,6 +128,12 @@ module Ritsu
         dependency = target_or_target_name
       end
       dependency_targets << dependency
+    end
+    
+    def add_dependency_targets(*target_or_target_names)
+      target_or_target_names.each do |target|
+        add_dependency_target(target)
+      end
     end
     
     def dependency_targets_sorted_by_topological_order

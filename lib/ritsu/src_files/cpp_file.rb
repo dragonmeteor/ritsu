@@ -18,6 +18,12 @@ module Ritsu
         src_path = compute_src_path(path, options)
         CppFile.new(src_path, self)
       end
+      
+      def add_cpp_files(*paths)
+        paths.each do |path|
+          add_cpp_file(path)
+        end
+      end
     end
   end
 end

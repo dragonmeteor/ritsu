@@ -45,6 +45,47 @@ ADD_EXECUTABLE(abc ${ABC_SRC_FILES})
 
 ##<< TargetCmakeLists -- abc -- Dependencies
 ##>> TargetCmakeLists -- abc -- Dependencies
+
+##<< TargetCmakeLists -- abc -- Install
+##>> TargetCmakeLists -- abc -- Install
+CMAKE
+
+    assert_file_content(expected_content, abc.cmake_lists.abs_path)
+  end
+  
+  file_test "install" do
+    abc = Ritsu::Targets::Executable.new("abc", :project=>@project)
+    abc.setup_install
+    FileRobot.quietly do
+      abc.cmake_lists.create
+    end
+    assert_file_exists(abc.cmake_lists.abs_path)
+
+    expected_content = <<-CMAKE
+##<< TargetCmakeLists -- abc -- Libraries
+##>> TargetCmakeLists -- abc -- Libraries
+
+##<< TargetCmakeLists -- abc -- Custom Commands
+##>> TargetCmakeLists -- abc -- Custom Commands
+
+##<< TargetCmakeLists -- abc -- Source Files
+SET(ABC_SRC_FILES
+)
+##>> TargetCmakeLists -- abc -- Source Files
+
+##<< ExecutableCmakeLists -- abc -- Executable
+ADD_EXECUTABLE(abc ${ABC_SRC_FILES})
+##>> ExecutableCmakeLists -- abc -- Executable
+
+##<< TargetCmakeLists -- abc -- Dependencies
+##>> TargetCmakeLists -- abc -- Dependencies
+
+##<< TargetCmakeLists -- abc -- Install
+INSTALL(TARGETS abc
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+)
+##>> TargetCmakeLists -- abc -- Install
 CMAKE
 
     assert_file_content(expected_content, abc.cmake_lists.abs_path)

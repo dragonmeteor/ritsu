@@ -31,6 +31,12 @@ module Ritsu
         src_path = compute_src_path(path, options)
         HeaderFile.new(src_path, self)
       end
+      
+      def add_header_files(*paths)
+        paths.each do |path|
+          add_header_file(path)
+        end
+      end
     end
   end
 end

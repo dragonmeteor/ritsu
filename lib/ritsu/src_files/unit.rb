@@ -14,7 +14,7 @@ module Ritsu
       end
       
       def add_units(*names)
-        paths.each do |path|
+        names.each do |name|
           add_unit(name)
         end
       end

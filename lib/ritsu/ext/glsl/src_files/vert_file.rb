@@ -4,16 +4,16 @@ require File.dirname(__FILE__) + '/../../../utility/instance_set'
 
 module Ritsu
   module SrcFiles
-    module GlvpFileMixin
+    module VertFileMixin
       def glsl_file?
         true
       end
       
-      def glvp_file?
+      def vert_file?
         true
       end
       
-      def glfp_file?
+      def frag_file?
         false
       end
       
@@ -34,31 +34,31 @@ module Ritsu
       end
     end
     
-    class GlvpFile < Ritsu::SrcFile
-      include GlvpFileMixin
+    class VertFile < Ritsu::SrcFile
+      include VertFileMixin
       
       def initialize(src_path, owner)
         super(src_path, owner)
       end
     end
   
-    module AddGlvpFile
-      def add_glvp_file(path, options={})
+    module AddVertFile
+      def add_vert_file(path, options={})
         src_path = compute_src_path(path, options)
-        glvp_file = GlvpFile.new(src_path, self)
+        vert_file = VertFile.new(src_path, self)
         
-        cpp_src_path = compute_src_path(glvp_file.cpp_file_base_name, options)
+        cpp_src_path = compute_src_path(vert_file.cpp_file_base_name, options)
         cpp_file = CppFile.new(cpp_src_path, self)
         
         self.custom_commands << "ADD_CUSTOM_COMMAND(\n" +
           "    OUTPUT ${CMAKE_SOURCE_DIR}/#{cpp_src_path}\n" +
-          "    COMMAND define_cpp_string #{glvp_file.code_var_name} < ${CMAKE_SOURCE_DIR}/#{glvp_file.src_path} > ${CMAKE_SOURCE_DIR}/#{cpp_file.src_path}\n" +
-          "    DEPENDS ${CMAKE_SOURCE_DIR}/#{glvp_file.src_path})"
+          "    COMMAND define_cpp_string #{vert_file.code_var_name} < ${CMAKE_SOURCE_DIR}/#{vert_file.src_path} > ${CMAKE_SOURCE_DIR}/#{cpp_file.src_path}\n" +
+          "    DEPENDS ${CMAKE_SOURCE_DIR}/#{vert_file.src_path})"
       end
       
-      def add_glvp_files(*paths)
+      def add_vert_files(*paths)
         paths.each do |path|
-          add_glvp_file(path)
+          add_vert_file(path)
         end
       end
     end
@@ -67,10 +67,10 @@ end
 
 module Ritsu
   class Target
-    include Ritsu::SrcFiles::AddGlvpFile
+    include Ritsu::SrcFiles::AddVertFile
   end
   
   class Project
-    include Ritsu::SrcFiles::AddGlvpFile
+    include Ritsu::SrcFiles::AddVertFile
   end
 end

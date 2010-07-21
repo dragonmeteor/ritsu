@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+# Convert a text file's content into a C++ const string.
+
+# Turn the given string to 
+# a C string literal that
+# parses to the original string.
+def string_literal(s)
+  result = "\"\\\n"
+  s.each_byte do |b|
+    c = b.chr
+    if c == "\n"
+      result += "\\n\\\n"
+    elsif c == "\r"
+      next
+    elsif c == "\\"
+      result += "\\\\"
+    elsif c == "\""
+      result += "\\\""
+    else
+      result += c
+    end
+  end
+  result += "\""
+  result
+end
+
+# Declare a constant string
+# variable whose value
+# is the given string.
+def const_string(name, s)
+  result = "const char * #{name} = " + string_literal(s)	 + ";"
+end
+
+require 'optparse'
+
+parser = OptionParser.new do |parser|
+  parser.banner = "Usage: define_cpp_string variable_name"
+  
+  parser.on_tail("-h", "--help", "Show this message") do
+    puts parser
+    exit
+  end
+end
+
+parser.parse(ARGV)
+var_name = ARGV.shift
+if not var_name
+	puts parser
+	exit
+end
+
+s = STDIN.read
+
+puts const_string(var_name, s)

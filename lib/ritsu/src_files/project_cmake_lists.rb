@@ -13,7 +13,7 @@ module Ritsu
           @project = project
           
           add_line "PROJECT(#{@project.name})"
-          add_line "CMAKE_MINIMUM_REQUIRED(VERSION 2.6)"
+          add_line "CMAKE_MINIMUM_REQUIRED(VERSION 2.8)"
           add_line "SET(CMAKE_MODULE_PATH \"${CMAKE_SOURCE_DIR}/cmake_modules\" ${CMAKE_MODULE_PATH})"
           add_new_line
           add_line "IF(WIN32)"

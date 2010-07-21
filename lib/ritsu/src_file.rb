@@ -27,6 +27,10 @@ module Ritsu
       @owner.src_files << self
     end
     
+    def base_name
+      File.basename(src_path)
+    end
+    
     def self.validate_instance(instance)
       if instances.select { |x| x.src_path == instance.src_path }.length > 0
         raise ArgumentError.new "source file with path '#{instance.src_path}' already exists"

@@ -58,10 +58,10 @@ class Default < Thor
       s.version = File.read(File.dirname(__FILE__) + '/VERSION').strip
       s.rubyforge_project = "ritsu"
       s.platform = Gem::Platform::RUBY
-      s.summary = "A code generation system that facilitates building C/C++ software with the help of CMake and Doxygen"
+      s.summary = "A code generation system that facilitates building C/C++ software with the help of CMake"
       s.email = "dragonmeteor@gmail.com"
       s.homepage = "http://github.com/dragonmeteor/ritsu"
-      s.description = "A code generation system that facilitates building C/C++ software with the help of CMake and Doxygen"
+      s.description = "Ritsu is a tool to help generate CMakeLists.txt and other source code files in a C++ software project."
       s.authors = ['dragonmeteor']
       
       s.has_rdoc = true
@@ -75,7 +75,7 @@ class Default < Thor
       
       s.require_path = 'lib'
       s.bindir = "bin"
-      s.executables = %w( ritsu )
+      s.executables = %w( ritsu define_cpp_string )
       s.files = s.extra_rdoc_files + Dir.glob("{bin,lib}/**/*")
       s.test_files.include 'test/**/*'
       s.test_files.exclude 'test/**/output/**'

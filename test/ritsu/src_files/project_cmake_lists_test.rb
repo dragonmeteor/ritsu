@@ -37,7 +37,7 @@ class ProjectCMakeListsTest < Test::Unit::TestCase
     expected_content = <<-TEXT
 ##<< ProjectCmakeLists -- Header
 PROJECT(mio)
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 
 IF(WIN32)
@@ -107,7 +107,7 @@ CMAKE
     expected_content = <<-TEXT
 ##<< ProjectCmakeLists -- Header
 PROJECT(mio)
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 
 IF(WIN32)

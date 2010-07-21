@@ -51,7 +51,7 @@ module Ritsu
     end
     
     def update_block(block, options={})
-      raise NotImplmentedError.new
+      raise NotImplementedError.new
     end
     
     def add_template(template)

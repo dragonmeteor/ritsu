@@ -170,8 +170,12 @@ module Ritsu
           @install_template = InstallTemplate.new(@target)
           contents << @install_template
         end
+        
+        def position_to_insert(block, new_block)
+          block.contents.length
+        end
       end
-    
+      
       def initialize(target)
         super("#{target.name}/CMakeLists.txt", target,
           :block_start_prefix=>'##<<',

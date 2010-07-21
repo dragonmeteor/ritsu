@@ -127,7 +127,7 @@ module Ritsu::TemplatePolicies
     # @return (Integer) the position in block.contents to
     #  insert the given new block
     def position_to_insert(block, new_block)
-      raise NotImplmentedError
+      raise NotImplementedError
     end
   end
 end

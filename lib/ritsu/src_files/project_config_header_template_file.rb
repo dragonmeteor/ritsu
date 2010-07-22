@@ -1,10 +1,10 @@
 require 'rubygems'
 require 'active_support/core_ext/string/inflections'
-require File.dirname(__FILE__) + "/templated_src_file"
-require File.dirname(__FILE__) + "/../template_policies"
-require File.dirname(__FILE__) + "/../template"
-require File.dirname(__FILE__) + "/../utility/platform"
-require File.dirname(__FILE__) + "/header_file_mixin"
+require File.expand_path(File.dirname(__FILE__) + "/templated_src_file")
+require File.expand_path(File.dirname(__FILE__) + "/../template_policies")
+require File.expand_path(File.dirname(__FILE__) + "/../template")
+require File.expand_path(File.dirname(__FILE__) + "/../utility/platform")
+require File.expand_path(File.dirname(__FILE__) + "/header_file_mixin")
 
 module Ritsu
   module SrcFiles

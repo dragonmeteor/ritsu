@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/utility/file_robot'
-require File.dirname(__FILE__) + '/utility/instance_set'
-require File.dirname(__FILE__) + '/utility/strings'
+require File.expand_path(File.dirname(__FILE__) + '/utility/file_robot')
+require File.expand_path(File.dirname(__FILE__) + '/utility/instance_set')
+require File.expand_path(File.dirname(__FILE__) + '/utility/strings')
 
 module Ritsu
   class ProjectGenerator

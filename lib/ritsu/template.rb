@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/block'
+require File.expand_path(File.dirname(__FILE__) + '/block')
 
 module Ritsu
   class Template

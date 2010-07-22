@@ -1,7 +1,7 @@
-require File.dirname(__FILE__) + '/../src_file'
-require File.dirname(__FILE__) + '/../project'
-require File.dirname(__FILE__) + '/../utility/instance_set'
-require File.dirname(__FILE__) + '/cpp_file_mixin'
+require File.expand_path(File.dirname(__FILE__) + '/../src_file')
+require File.expand_path(File.dirname(__FILE__) + '/../project')
+require File.expand_path(File.dirname(__FILE__) + '/../utility/instance_set')
+require File.expand_path(File.dirname(__FILE__) + '/cpp_file_mixin')
 
 module Ritsu
   module SrcFiles

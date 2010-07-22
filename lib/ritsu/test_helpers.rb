@@ -1,8 +1,8 @@
 require 'test/unit'
-require File.dirname(__FILE__) + "/target"
-require File.dirname(__FILE__) + "/src_file"
-require File.dirname(__FILE__) + "/external_library"
-require File.dirname(__FILE__) + "/project"
+require File.expand_path(File.dirname(__FILE__) + "/target")
+require File.expand_path(File.dirname(__FILE__) + "/src_file")
+require File.expand_path(File.dirname(__FILE__) + "/external_library")
+require File.expand_path(File.dirname(__FILE__) + "/project")
 
 module Ritsu
   module SetupProjectAndClearEverythingElse

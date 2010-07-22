@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../template'
-require File.dirname(__FILE__) + '/../template_policies'
-require File.dirname(__FILE__) + '/../src_files/templated_src_file'
+require File.expand_path(File.dirname(__FILE__) + '/../template')
+require File.expand_path(File.dirname(__FILE__) + '/../template_policies')
+require File.expand_path(File.dirname(__FILE__) + '/../src_files/templated_src_file')
 
 module Ritsu
   module SrcFiles

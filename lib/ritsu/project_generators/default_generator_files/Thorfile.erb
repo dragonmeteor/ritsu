@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'thor'
 require 'ritsu'
-require File.dirname(__FILE__) + "/meta/project.rb"
+require File.expand_path(File.dirname(__FILE__) + "/meta/project.rb")
 
 class <%= @project_name.camelize %> < Ritsu::Thors::DefaultThor
 end

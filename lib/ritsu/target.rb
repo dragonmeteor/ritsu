@@ -2,12 +2,12 @@ require 'rubygems'
 require 'active_support'
 require 'set'
 require 'pathname'
-require File.dirname(__FILE__) + '/utility/instance_set'
-require File.dirname(__FILE__) + '/utility/strings'
-require File.dirname(__FILE__) + '/project'
-require File.dirname(__FILE__) + '/utility/check_upon_add_set'
-require File.dirname(__FILE__) + '/external_library'
-require File.dirname(__FILE__) + '/utility/instance_dependencies'
+require File.expand_path(File.dirname(__FILE__) + '/utility/instance_set')
+require File.expand_path(File.dirname(__FILE__) + '/utility/strings')
+require File.expand_path(File.dirname(__FILE__) + '/project')
+require File.expand_path(File.dirname(__FILE__) + '/utility/check_upon_add_set')
+require File.expand_path(File.dirname(__FILE__) + '/external_library')
+require File.expand_path(File.dirname(__FILE__) + '/utility/instance_dependencies')
 
 module Ritsu
   class Target

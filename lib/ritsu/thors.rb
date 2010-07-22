@@ -1,1 +1,1 @@
-require File.dirname(__FILE__) + '/thors/default_thor'
+require File.expand_path(File.dirname(__FILE__) + '/thors/default_thor')

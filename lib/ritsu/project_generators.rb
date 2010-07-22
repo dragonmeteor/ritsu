@@ -1,1 +1,1 @@
-require File.dirname(__FILE__) + '/project_generators/default_generator'
+require File.expand_path(File.dirname(__FILE__) + '/project_generators/default_generator')

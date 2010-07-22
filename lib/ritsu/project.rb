@@ -1,11 +1,11 @@
 require 'rubygems'
 require 'active_support'
-require File.dirname(__FILE__) + '/external_library'
-require File.dirname(__FILE__) + '/utility/single_instance'
-require File.dirname(__FILE__) + '/utility/strings'
-require File.dirname(__FILE__) + '/src_files/project_cmake_lists'
-require File.dirname(__FILE__) + '/src_files/project_config_header_file'
-require File.dirname(__FILE__) + '/src_files/project_config_header_template_file'
+require File.expand_path(File.dirname(__FILE__) + '/external_library')
+require File.expand_path(File.dirname(__FILE__) + '/utility/single_instance')
+require File.expand_path(File.dirname(__FILE__) + '/utility/strings')
+require File.expand_path(File.dirname(__FILE__) + '/src_files/project_cmake_lists')
+require File.expand_path(File.dirname(__FILE__) + '/src_files/project_config_header_file')
+require File.expand_path(File.dirname(__FILE__) + '/src_files/project_config_header_template_file')
 
 module Ritsu
   class Project

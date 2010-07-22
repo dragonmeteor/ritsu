@@ -1,9 +1,5 @@
-require 'rubygems'
-require 'active_support/core_ext/string/inflections'
-require File.dirname(__FILE__) + '/../../../src_file'
-require File.dirname(__FILE__) + '/../../../project'
-require File.dirname(__FILE__) + '/../../../utility/instance_set'
-require File.dirname(__FILE__) + '/../../../src_files/cpp_file'
+require File.expand_path(File.dirname(__FILE__) + "/../../../project")
+require File.expand_path(File.dirname(__FILE__) + "/../../../src_file")
 
 module Ritsu
   module SrcFiles

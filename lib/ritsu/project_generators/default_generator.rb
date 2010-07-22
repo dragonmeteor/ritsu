@@ -2,9 +2,9 @@ require 'rubygems'
 require 'singleton'
 require 'erb'
 require 'active_support/core_ext/string/inflections'
-require File.dirname(__FILE__) + '/../project_generator'
-require File.dirname(__FILE__) + '/../utility/file_robot'
-require File.dirname(__FILE__) + '/../utility/files'
+require File.expand_path(File.dirname(__FILE__) + '/../project_generator')
+require File.expand_path(File.dirname(__FILE__) + '/../utility/file_robot')
+require File.expand_path(File.dirname(__FILE__) + '/../utility/files')
 
 module Ritsu
   module ProjectGenerators

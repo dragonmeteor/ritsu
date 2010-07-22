@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + "/../target"
-require File.dirname(__FILE__) + "/../utility/accessors"
+require File.expand_path(File.dirname(__FILE__) + "/../target")
+require File.expand_path(File.dirname(__FILE__) + "/../utility/accessors")
 
 module Ritsu::Targets
   class Library < Ritsu::Target

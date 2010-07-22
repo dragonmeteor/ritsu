@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/template'
+require File.expand_path(File.dirname(__FILE__) + '/template')
 
 module Ritsu::TemplatePolicies
   module StrictBlockMatchingButLeaveUserTextBe

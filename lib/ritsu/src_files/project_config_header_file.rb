@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/../src_file"
+require File.expand_path(File.dirname(__FILE__) + "/../src_file")
 
 module Ritsu
   module SrcFiles

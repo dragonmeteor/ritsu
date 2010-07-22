@@ -1,6 +1,7 @@
+require 'rubygems'
 require 'thor'
-require File.dirname(__FILE__) + '/../project'
-require File.dirname(__FILE__) + '/../utility/platform'
+require File.expand_path(File.dirname(__FILE__) + '/../project')
+require File.expand_path(File.dirname(__FILE__) + '/../utility/platform')
 
 module Ritsu::Thors
   class DefaultThor < Thor

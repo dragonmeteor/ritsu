@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../src_file'
-require File.dirname(__FILE__) + '/cpp_file'
-require File.dirname(__FILE__) + '/header_file'
+require File.expand_path(File.dirname(__FILE__) + '/../src_file')
+require File.expand_path(File.dirname(__FILE__) + '/cpp_file')
+require File.expand_path(File.dirname(__FILE__) + '/header_file')
 
 module Ritsu
   module SrcFiles

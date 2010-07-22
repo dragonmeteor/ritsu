@@ -1,6 +1,6 @@
 require 'fileutils'
 require 'singleton'
-require File.dirname(__FILE__) + '/../utility/simple_io'
+require File.expand_path(File.dirname(__FILE__) + '/../utility/simple_io')
 
 module Ritsu
   module Utility

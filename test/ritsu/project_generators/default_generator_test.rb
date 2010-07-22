@@ -19,6 +19,7 @@ class DefaultGeneratorTest < Test::Unit::TestCase
     assert_output_file_exists("mio/meta/project.rb")
     
     expected_project_rb_content = <<-RUBY
+require 'rubygems'
 require 'ritsu'
 
 Ritsu::Project.create('mio') do |p|

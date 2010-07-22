@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/../../project"
+require File.expand_path(File.dirname(__FILE__) + "/../../project")
 
 module Ritsu
   class Project

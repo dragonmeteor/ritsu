@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'active_support/core_ext/string/inflections'
 require 'active_support/inflector'
-require File.dirname(__FILE__) + "/instance_set"
+require File.expand_path(File.dirname(__FILE__) + "/instance_set")
 
 module Ritsu
   module Utility

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../src_files/target_cmake_lists'
+require File.expand_path(File.dirname(__FILE__) + '/../src_files/target_cmake_lists')
 
 module Ritsu
   module SrcFiles

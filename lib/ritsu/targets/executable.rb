@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'active_support'
-require File.dirname(__FILE__) + '/../target'
-require File.dirname(__FILE__) + '/../utility/instance_set'
-require File.dirname(__FILE__) + '/../src_files/executable_cmake_lists'
+require File.expand_path(File.dirname(__FILE__) + '/../target')
+require File.expand_path(File.dirname(__FILE__) + '/../utility/instance_set')
+require File.expand_path(File.dirname(__FILE__) + '/../src_files/executable_cmake_lists')
 
 module Ritsu::Targets
   class Executable < Ritsu::Target

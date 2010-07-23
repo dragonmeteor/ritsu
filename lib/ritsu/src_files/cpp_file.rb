@@ -1,15 +1,20 @@
 require File.expand_path(File.dirname(__FILE__) + '/../src_file')
 require File.expand_path(File.dirname(__FILE__) + '/../project')
 require File.expand_path(File.dirname(__FILE__) + '/../utility/instance_set')
-require File.expand_path(File.dirname(__FILE__) + '/cpp_file_mixin')
 
 module Ritsu
   module SrcFiles
     class CppFile < Ritsu::SrcFile
-      include CppFileMixin
-      
       def initialize(src_path, owner)
         super(src_path, owner)
+      end
+      
+      def header_file?
+        false
+      end
+      
+      def cpp_file?
+        true
       end
     end
   

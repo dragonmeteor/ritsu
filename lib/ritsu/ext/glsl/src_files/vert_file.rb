@@ -2,8 +2,12 @@ require File.expand_path(File.dirname(__FILE__) + "/../../../project")
 require File.expand_path(File.dirname(__FILE__) + "/../../../src_file")
 
 module Ritsu
-  module SrcFiles
-    module VertFileMixin
+  module SrcFiles    
+    class VertFile < Ritsu::SrcFile      
+      def initialize(src_path, owner)
+        super(src_path, owner)
+      end
+      
       def glsl_file?
         true
       end
@@ -30,14 +34,6 @@ module Ritsu
       
       def code_var_name
         src_path.gsub(/[.\/]+/,'_') + "_code"
-      end
-    end
-    
-    class VertFile < Ritsu::SrcFile
-      include VertFileMixin
-      
-      def initialize(src_path, owner)
-        super(src_path, owner)
       end
     end
   

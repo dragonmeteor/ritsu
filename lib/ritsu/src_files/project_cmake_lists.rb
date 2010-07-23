@@ -102,7 +102,7 @@ module Ritsu
         self.template = Template.new(project)
       end
     
-      def include_in_cmake?
+      def include_in_source_files?
         false
       end
     end

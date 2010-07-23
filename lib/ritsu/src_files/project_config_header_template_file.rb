@@ -4,7 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + "/templated_src_file")
 require File.expand_path(File.dirname(__FILE__) + "/../template_policies")
 require File.expand_path(File.dirname(__FILE__) + "/../template")
 require File.expand_path(File.dirname(__FILE__) + "/../utility/platform")
-require File.expand_path(File.dirname(__FILE__) + "/header_file_mixin")
 
 module Ritsu
   module SrcFiles
@@ -38,7 +37,7 @@ module Ritsu
         self.template = Template.new(self)
       end
       
-      def include_in_cmake?
+      def include_in_source_files?
         false
       end
     end

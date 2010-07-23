@@ -2,13 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../src_file')
 require File.expand_path(File.dirname(__FILE__) + '/../project')
 require File.expand_path(File.dirname(__FILE__) + '/../utility/instance_set')
 require File.expand_path(File.dirname(__FILE__) + '/../utility/file_robot')
-require File.expand_path(File.dirname(__FILE__) + '/header_file_mixin')
 
 module Ritsu
   module SrcFiles
-    class HeaderFile < Ritsu::SrcFile
-      include HeaderFileMixin
-    
+    class HeaderFile < Ritsu::SrcFile    
       def initialize(src_path, owner)
         super(src_path, owner)
       end
@@ -23,7 +20,19 @@ module Ritsu
           "////////////////////\n" +
           "\n" +
           "#endif\n")
-      end          
+      end
+      
+      def include_guard
+        '__' + project.name.underscore.upcase + '_' + src_path.gsub(/[.\/]+/,'_').upcase + '__'
+      end
+      
+      def header_file?
+        true
+      end
+      
+      def cpp_file?
+        false
+      end
     end
     
     module AddHeaderFile

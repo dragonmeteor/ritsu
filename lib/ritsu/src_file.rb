@@ -64,7 +64,7 @@ module Ritsu
       FileRobot.remove_file(abs_path)
     end
     
-    def include_in_cmake?
+    def include_in_source_files?
       return true
     end
     

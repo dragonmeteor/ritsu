@@ -2,9 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/src_files/project_cmake_list
 
 require File.expand_path(File.dirname(__FILE__) + '/src_files/templated_src_file')
 
-require File.expand_path(File.dirname(__FILE__) + '/src_files/cpp_file_mixin')
 require File.expand_path(File.dirname(__FILE__) + '/src_files/cpp_file')
-require File.expand_path(File.dirname(__FILE__) + '/src_files/header_file_mixin')
 require File.expand_path(File.dirname(__FILE__) + '/src_files/header_file')
 require File.expand_path(File.dirname(__FILE__) + '/src_files/target_cmake_lists')
 require File.expand_path(File.dirname(__FILE__) + '/src_files/executable_cmake_lists')

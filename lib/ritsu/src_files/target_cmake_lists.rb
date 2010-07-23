@@ -75,7 +75,7 @@ module Ritsu
           src_files = target.src_files.to_a
           src_files.sort! {|x,y| x.src_path <=> y.src_path}
           src_files.each do |src_file|
-            block.contents << "    ${CMAKE_SOURCE_DIR}/#{src_file.src_path}" if src_file.include_in_cmake?
+            block.contents << "    ${CMAKE_SOURCE_DIR}/#{src_file.src_path}" if src_file.include_in_source_files?
           end
         
           block.contents << ")"
@@ -182,7 +182,7 @@ module Ritsu
           :block_end_prefix=>'##>>')
       end
     
-      def include_in_cmake?
+      def include_in_source_files?
         false
       end
     end

@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../src_files/target_cm
 
 module Ritsu
   module SrcFiles
-    class TargetCmakeLists
+    class TargetCmakeLists      
       class CudaCompileTemplate < Ritsu::Template
         attr_reader :target
       
@@ -31,11 +31,6 @@ module Ritsu
             block.add_line("${CMAKE_SOURCE_DIR}/#{cu_file.src_path}")
           end
           block.outdent
-          #if target.static_library?
-          #  block.add_line("STATIC")
-          #elsif target.shared_library?
-          #  block.add_line("SHARED")
-          #end
           block.add_line ")"
           block.add_new_line
           block.add_line "SET(#{target.name.upcase}_SRC_FILES ${#{target.name.upcase}_SRC_FILES} ${#{cuda_generate_files_var_name}})"

@@ -72,7 +72,7 @@ module Ritsu
       
         create_dir(File.dirname(filename), :echo_exists=>false)
         if File.exists?(filename)
-          if force
+          if self.force
             do_overwrite.call
           else
             answer = io.ask_yes_no_all("overwrite #{filename}?")
@@ -82,7 +82,7 @@ module Ritsu
             when :no
               io.log('exist', filename)
             when :all
-              force = true
+              self.force = true
               do_overwrite.call
             end
           end

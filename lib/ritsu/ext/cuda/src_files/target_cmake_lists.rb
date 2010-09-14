@@ -24,6 +24,7 @@ module Ritsu
           if cu_files.length == 0
             return
           end
+          cu_files.sort! {|x,y| x.src_path <=> y.src_path}
           
           block.add_line "CUDA_COMPILE(#{cuda_generate_files_var_name}"
           block.indent

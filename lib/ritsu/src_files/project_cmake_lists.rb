@@ -61,7 +61,17 @@ module Ritsu
       
         def update_block(block, options={})
           block.contents.clear
-          @project.targets_sorted_by_topological_order.each do |target|
+          targets = @project.targets_sorted_by_topological_order
+          targets.sort! { |x,y|
+            if x.topological_order < y.topological_order
+              -1
+            elsif x.topological_order > y.topological_order
+              1
+            else
+              x.name <=> y.name
+            end
+          }
+          targets.each do |target|
             block.contents << "ADD_SUBDIRECTORY(#{target.name})"
           end
         end

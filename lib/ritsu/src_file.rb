@@ -17,7 +17,7 @@ module Ritsu
         
     def initialize(src_path, owner)
       if !(self.class.is_valid_src_path?(src_path))
-        raise ArgumentError.new "'#{src_path}' is not a valid source path"
+        raise ArgumentError.new("'#{src_path}' is not a valid source path")
       end
 
       @src_path = src_path
@@ -33,7 +33,7 @@ module Ritsu
     
     def self.validate_instance(instance)
       if instances.select { |x| x.src_path == instance.src_path }.length > 0
-        raise ArgumentError.new "source file with path '#{instance.src_path}' already exists"
+        raise ArgumentError.new("source file with path '#{instance.src_path}' already exists")
       end
     end
     

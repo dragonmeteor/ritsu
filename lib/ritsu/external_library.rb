@@ -31,7 +31,7 @@ module Ritsu
     
     def self.validate_instance(instance)
       if instances.select { |x| x.name == instance.name }.length > 0
-        raise ArgumentError.new "external library with name '#{instance.name}' already exists"
+        raise ArgumentError.new("external library with name '#{instance.name}' already exists")
       end
     end
     

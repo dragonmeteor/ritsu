@@ -15,6 +15,7 @@ module Ritsu
           block.contents.clear
           
           to_install = project.targets.select { |x| x.install? }
+          to_install.sort! {|x,y| x.name <=> y.name }
           
           if project.performs_fake_install? && to_install.length > 0
             block.add_line "ADD_CUSTOM_TARGET(fake_install"

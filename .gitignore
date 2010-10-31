@@ -4,6 +4,8 @@ doc/*
 test/*/output/*
 test/*/*/output/*
 test/*/*/*/output/*
+test/*/*/*/*/output/*
+test/*/*/*/*/*/output/*
 .hgignore
 .hg/*
 ritsu.gemspec

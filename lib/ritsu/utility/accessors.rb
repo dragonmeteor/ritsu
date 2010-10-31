@@ -15,7 +15,7 @@ module Ritsu
               elsif args.length == 1
                 @#{name} = args[0]
               end
-            end
+            end 
           _RUBY
         end
         
@@ -24,7 +24,7 @@ module Ritsu
             attr_method_single(name)
           end
         end
-      end      
+      end
     end
   end
 end

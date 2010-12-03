@@ -88,13 +88,6 @@ class Default < Thor
       s.files = s.extra_rdoc_files + Dir.glob("{bin,lib}/**/*")
       s.test_files.include 'test/**/*'
       s.test_files.exclude 'test/**/output/**'
-      
-      s.add_runtime_dependency 'thor', '>= 0.13.4'
-      s.add_runtime_dependency 'activesupport', '>= 2.3.5'
-      
-      s.add_development_dependency 'jeweler', '>= 1.4.0'
-      s.add_development_dependency 'yard', '>= 0.5.3'
-      s.add_development_dependency 'maruku', '>= 0.5.9'
     end
 
     Jeweler::GemcutterTasks.new    

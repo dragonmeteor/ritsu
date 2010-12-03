@@ -53,7 +53,7 @@ module Ritsu
         def update_block(block, options = {})
           block.clear_contents
           
-          header_files = target.src_files.select { |x| x.respond_to?(:header_file?) && x.header_file? }
+          header_files = target.src_files.select { |x| x.respond_to?(:qt_header_file?) && x.qt_header_file? }
           if header_files.length == 0
             return
           end
@@ -94,9 +94,9 @@ module Ritsu
         
         def position_to_insert(block, new_block)
           if new_block.id == qt_moc_template.id
-            block.child_block_with_id_position(qt_ui_template.id) + 1
+            block.child_block_with_id_position(qt_ui_template.id) + 2
           elsif new_block.id == qt_ui_template.id
-            block.child_block_with_id_position(source_files_template.id) + 1
+            block.child_block_with_id_position(source_files_template.id) + 2
           else
             position_to_insert_before_cuda(block, new_block)
           end

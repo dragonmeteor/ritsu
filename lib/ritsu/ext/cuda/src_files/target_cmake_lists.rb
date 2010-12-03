@@ -100,7 +100,7 @@ module Ritsu
         
         def position_to_insert(block, new_block)
           if new_block.id == cuda_compile_template.id
-              block.child_block_with_id_position(source_files_template.id) + 1
+              block.child_block_with_id_position(source_files_template.id) + 2
           else
             position_to_insert_before_cuda(block, new_block)
           end

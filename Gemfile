@@ -7,6 +7,7 @@ source "http://rubygems.org"
 # Include everything needed to run rake, tests, features, etc.
 gem "thor", ">= 0.13.4"
 gem "activesupport", ">= 2.3.5"
+gem "i18n"
 
 group :development do
   gem "jeweler", ">= 1.4.0"

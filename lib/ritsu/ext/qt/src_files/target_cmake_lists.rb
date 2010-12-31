@@ -26,7 +26,7 @@ module Ritsu
           end
           ui_files.sort! {|x,y| x.src_path <=> y.src_path}
           
-          block.add_line "QT4_WRAP_UI(#{ui_header_files_var_name}"
+          block.add_line "RITSU_QT4_WRAP_UI(#{ui_header_files_var_name}"
           block.indent
           ui_files.each do |ui_file|
             block.add_line("${CMAKE_SOURCE_DIR}/#{ui_file.src_path}")

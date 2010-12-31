@@ -29,7 +29,7 @@ module Ritsu
       
       def add_ui_files(*paths)
         paths.each do |path|
-          add_cu_file(path)
+          add_ui_file(path)
         end
       end
     end

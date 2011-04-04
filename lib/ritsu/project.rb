@@ -6,11 +6,13 @@ require File.expand_path(File.dirname(__FILE__) + '/utility/strings')
 require File.expand_path(File.dirname(__FILE__) + '/src_files/project_cmake_lists')
 require File.expand_path(File.dirname(__FILE__) + '/src_files/project_config_header_file')
 require File.expand_path(File.dirname(__FILE__) + '/src_files/project_config_header_template_file')
+require File.expand_path(File.dirname(__FILE__) + "/utility/accessors")
 
 module Ritsu
   class Project
     include Ritsu::Utility::SingleInstance
     include Ritsu::Utility::Strings
+    include Ritsu::Utility::Accessors
     
     attr_reader :name
     attr_reader :targets
@@ -20,6 +22,8 @@ module Ritsu
     attr_reader :cmake_lists
     attr_reader :config_header_file
     attr_reader :config_header_template_file
+    attr_accessor :custom_script
+    attr_method :custom_script
     
     def initialize_instance(name)
       if !is_c_name?(name)
@@ -32,6 +36,7 @@ module Ritsu
       @external_libraries = Set.new
       @src_files = Set.new
       @project_dir = File.expand_path('.')
+      @custom_script = ""
       
       @cmake_lists = Ritsu::SrcFiles::ProjectCmakeLists.new(self)
       @config_header_file = Ritsu::SrcFiles::ProjectConfigHeaderFile.new(self)

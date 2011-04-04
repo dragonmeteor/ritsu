@@ -60,6 +60,10 @@ ELSE(UNIX)
 ENDIF(UNIX)
 ##>> ProjectCmakeLists -- Header
 
+##<< ProjectCmakeLists -- Custom Script
+
+##>> ProjectCmakeLists -- Custom Script
+
 ##<< ProjectCmakeLists -- External Libraries
 ##>> ProjectCmakeLists -- External Libraries
 
@@ -129,6 +133,10 @@ ELSE(UNIX)
     OPTION(__UNIX_PLATFORM__ "Unix Platform" OFF)
 ENDIF(UNIX)
 ##>> ProjectCmakeLists -- Header
+
+##<< ProjectCmakeLists -- Custom Script
+
+##>> ProjectCmakeLists -- Custom Script
 
 ##<< ProjectCmakeLists -- External Libraries
 FIND_PACKAGE(OpenGL REQUIRED)

@@ -37,6 +37,18 @@ module Ritsu
         end
       end
       
+      class CustomScriptTemplate < Ritsu::Template
+        def initialize(project)
+          super("ProjectCmakeLists -- Custom Script")
+          @project = project
+        end
+        
+        def update_block(block, options={})
+          block.contents.clear
+          block.contents << @project.custom_script
+        end
+      end
+      
       class ExternalLibrariesTemplate < Ritsu::Template
         def initialize(project)
           super("ProjectCmakeLists -- External Libraries")
@@ -96,6 +108,8 @@ module Ritsu
           @project = project
           
           add_template HeaderTemplate.new(project)
+          add_new_line
+          add_template CustomScriptTemplate.new(project)
           add_new_line
           add_template ExternalLibrariesTemplate.new(project)
           add_new_line

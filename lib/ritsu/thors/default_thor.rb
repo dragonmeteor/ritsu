@@ -27,14 +27,13 @@ module Ritsu::Thors
     method_option :generator, :type => :string
     def update
       prepare_cmake_generator
-            
       update_src
       cmake
     end
     
     protected
       def prepare_cmake_generator
-        if !options.has_key?(:generator)
+        if options[:generator].nil?
           @cmake_generator = default_cmake_generator(Ritsu::Utility.platform)
         else
           @cmake_generator = options[:generator]

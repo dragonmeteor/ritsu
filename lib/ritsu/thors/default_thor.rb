@@ -44,7 +44,7 @@ module Ritsu::Thors
         platform = platform.to_sym
         case platform
         when :windows
-          "Visual Studio 9 2008"
+          "Visual Studio 10"
         when :mac
           "Xcode"
         when :unix

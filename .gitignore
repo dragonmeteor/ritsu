@@ -10,3 +10,4 @@ test/*/*/*/*/*/output/*
 .hg/*
 ritsu.gemspec
 pkg/*
+ritsu-*.gem

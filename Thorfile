@@ -1,6 +1,6 @@
 # enconding: utf-8
-
 require 'rubygems'
+require 'psych'
 require 'bundler'
 begin
   Bundler.setup(:default, :development)
@@ -34,31 +34,31 @@ class Default < Thor
     t.verbose = true
   end
 
-  if defined?(RDoc)
-    RDoc::Task.new do |rdoc|
-      rdoc.main = "README.rdoc"
-      rdoc.rdoc_dir = "rdoc"
-      rdoc.title = GEM_NAME
-      rdoc.rdoc_files.include(*EXTRA_RDOC_FILES)
-      rdoc.rdoc_files.include('lib/**/*.rb')
-      rdoc.options << '--line-numbers' << '--inline-source'
-    end
-  end
+  #if defined?(RDoc)
+  #  RDoc::Task.new do |rdoc|
+  #    rdoc.main = "README.rdoc"
+  #    rdoc.rdoc_dir = "rdoc"
+  #    rdoc.title = GEM_NAME
+  #    rdoc.rdoc_files.include(*EXTRA_RDOC_FILES)
+  #    rdoc.rdoc_files.include('lib/**/*.rb')
+  #    rdoc.options << '--line-numbers' << '--inline-source'
+  #  end
+  #end
   
-  YARD::Rake::YardocTask.new do |t|
-    t.files = FileList.new('lib/**/*.rb').to_a + EXTRA_RDOC_FILES
-    t.options << '--incremental' if Rake.application.top_level_tasks.include?('redoc')
-    #t.options += FileList.new(scope('yard/*.rb')).to_a.map {|f| ['-e', f]}.flatten
-    files = FileList.new('doc-src/*').to_a.sort_by {|s| s.size} + %w[VERSION]
-    t.options << '--files' << files.join(',')
-    #t.options << '--template-path' << scope('yard')
-    t.options << '--title' << ENV["YARD_TITLE"] if ENV["YARD_TITLE"]
-  end
+  #YARD::Rake::YardocTask.new do |t|
+  #  t.files = FileList.new('lib/**/*.rb').to_a + EXTRA_RDOC_FILES
+  #  t.options << '--incremental' if Rake.application.top_level_tasks.include?('redoc')
+  #  #t.options += FileList.new(scope('yard/*.rb')).to_a.map {|f| ['-e', f]}.flatten
+  #  files = FileList.new('doc-src/*').to_a.sort_by {|s| s.size} + %w[VERSION]
+  #  t.options << '--files' << files.join(',')
+  #  #t.options << '--template-path' << scope('yard')
+  #  t.options << '--title' << ENV["YARD_TITLE"] if ENV["YARD_TITLE"]
+  #end
   
-  desc "doc", "Generate YARD Documentation"
-  def doc
-    yard
-  end
+  #desc "doc", "Generate YARD Documentation"
+  #def doc
+  #  yard
+  #end
   
   begin
     require 'jeweler'
@@ -73,14 +73,14 @@ class Default < Thor
       s.description = "Ritsu is a tool to help generate CMakeLists.txt and other source code files in a C++ software project."
       s.authors = ['dragonmeteor']
       
-      s.has_rdoc = true
-      s.extra_rdoc_files = EXTRA_RDOC_FILES
-      s.rdoc_options += [
-        '--title', 'Ritsu',
-        '--main', 'README.md',
-        '--line-numbers',
-        '--inline-source'
-       ]
+      #s.has_rdoc = true
+      #s.extra_rdoc_files = EXTRA_RDOC_FILES
+      #s.rdoc_options += [
+      #  '--title', 'Ritsu',
+      #  '--main', 'README.md',
+      #  '--line-numbers',
+      #  '--inline-source'
+      #]
       
       s.require_path = 'lib'
       s.bindir = "bin"
@@ -90,7 +90,7 @@ class Default < Thor
       s.test_files.exclude 'test/**/output/**'
     end
 
-    Jeweler::GemcutterTasks.new    
+    Jeweler::GemcutterTasks.new
     
     desc "fast_install", "Install gem without RI and RDoc"
     def fast_install

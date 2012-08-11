@@ -11,3 +11,4 @@ test/*/*/*/*/*/output/*
 ritsu.gemspec
 pkg/*
 ritsu-*.gem
+Gemfile.lock

@@ -86,8 +86,8 @@ class Default < Thor
       s.bindir = "bin"
       s.executables = %w( ritsu define_cpp_string )
       s.files = s.extra_rdoc_files + Dir.glob("{bin,lib}/**/*")
-      s.test_files.include 'test/**/*'
-      s.test_files.exclude 'test/**/output/**'
+      #s.test_files.include 'test/**/*'
+      #s.test_files.exclude 'test/**/output/**'
     end
 
     Jeweler::GemcutterTasks.new
